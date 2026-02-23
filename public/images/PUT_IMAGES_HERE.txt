@@ -1,0 +1,9 @@
+Put your image files in this folder.
+
+Supported formats: .jpg, .jpeg, .png, .webp, .gif
+
+How to use them in index.html:
+  <img src="images/yourfile.jpg" alt="Description" />
+
+For the gallery, replace the gallery-placeholder divs in index.html.
+For the profile photo, replace the photo-placeholder div in the About section.

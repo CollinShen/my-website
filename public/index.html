@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+    PAGE TITLE — shows in browser tab and Google search results
+    Change "Your Name" to your actual name throughout this file
+  ============================================================ -->
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name — change this description for SEO." />
+
+  <!-- Google Fonts — change these at fonts.google.com
+       Current fonts: DM Serif Display (headings) + DM Sans (body)
+       To change: visit fonts.google.com, pick a font, copy the @import URL -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome icons (used for social link icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Your stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+    NAV BAR
+    Links here use #id to scroll to sections on the same page.
+    The ids must match the section ids below (e.g. id="about").
+  ============================================================ -->
+  <nav>
+    <div class="nav-logo">Your Name</div> <!-- ← change this -->
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <i class="fa fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ============================================================
+    HERO SECTION
+    This is the first thing people see. Keep it short and punchy.
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Portfolio — 2025</p> <!-- ← update year -->
+
+      <h1 class="hero-title">
+        Hi, I'm <em>Your Name.</em>
+      </h1> <!-- ← change Your Name -->
+
+      <p class="hero-sub">
+        One or two sentences about who you are and what you do.
+        Keep it short — people will read more in the About section.
+      </p> <!-- ← change this -->
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn">Get in touch</a>
+        <a href="#work" class="btn btn-ghost">See my work</a>
+      </div>
+    </div>
+
+    <!-- Decorative background element (styled in CSS, no content) -->
+    <div class="hero-bg-orb" aria-hidden="true"></div>
+  </section>
+
+
+  <!-- ============================================================
+    ABOUT SECTION
+    Write your bio here. 2–4 paragraphs is a good length.
+    The photo goes on the right — see the comment inside.
+  ============================================================ -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+
+      <div class="about-text">
+        <h2 class="section-title">A little<br>about me.</h2>
+
+        <!-- ← Write your bio here -->
+        <p>
+          Hi, my name is Collin Shen!
+        </p>
+        <p>
+          You can add a second paragraph here about your background,
+          skills, experience, or interests outside of work.
+        </p>
+
+        <!-- Optional: link to a resume PDF
+             Put your resume file in public/files/resume.pdf -->
+        <a href="/files/resume.pdf" class="btn" download>Download Resume</a>
+      </div>
+
+      <div class="about-photo">
+        <!-- ============================================================
+          TO ADD YOUR PHOTO:
+          1. Put your photo file in the public/images/ folder
+          2. Replace everything inside .about-photo with:
+             <img src="images/your-photo.jpg" alt="Your Name" />
+          ============================================================ -->
+        <div class="photo-placeholder">
+          <i class="fa fa-user"></i>
+          <span>Add your photo to<br>public/images/</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    VIDEO / FEATURED WORK SECTION
+    Uses a YouTube or Vimeo embed.
+
+    HOW TO CHANGE THE VIDEO:
+      1. Go to YouTube and open the video you want
+      2. Click Share → Embed
+      3. Find the src="..." value inside the iframe code they show you
+         It looks like: https://www.youtube.com/embed/VIDEO_ID
+      4. Replace the src value in the iframe below with your URL
+
+    HOW TO USE A VIMEO VIDEO:
+      Same steps — Vimeo also has Share → Embed.
+      The URL will look like: https://player.vimeo.com/video/VIDEO_ID
+  ============================================================ -->
+  <section id="work">
+    <p class="section-label">Featured Work</p>
+    <h2 class="section-title">Watch what I do.</h2>
+
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="Featured video — replace this src with your own YouTube embed URL"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <!-- ← Change this caption to describe your video -->
+    <p class="video-caption">Replace the YouTube embed URL in index.html → #work section</p>
+
+    <!-- ============================================================
+      OPTIONAL: ADD MORE VIDEOS OR PROJECT CARDS
+      Duplicate the .video-wrapper block above, or add cards like:
+      <div class="project-card">
+        <h3>Project Name</h3>
+        <p>Short description</p>
+        <a href="https://github.com/you/project" class="btn" target="_blank">View on GitHub</a>
+      </div>
+    ============================================================ -->
+  </section>
+
+
+  <!-- ============================================================
+    PHOTO GALLERY
+    Displays a grid of photos.
+
+    HOW TO ADD YOUR PHOTOS:
+      1. Put your image files in public/images/ folder
+         (e.g. public/images/photo1.jpg, photo2.jpg, etc.)
+      2. Inside each .gallery-item, replace the .gallery-placeholder div with:
+         <img src="images/photo1.jpg" alt="Describe the photo here" />
+      3. Add or remove .gallery-item divs to change how many photos show
+  ============================================================ -->
+  <section id="gallery">
+    <p class="section-label">Gallery</p>
+    <h2 class="section-title">Photos.</h2>
+
+    <div class="gallery-grid">
+      <!-- ← Replace each gallery-placeholder with your actual images -->
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        <!-- Replace above with: <img src="images/photo1.jpg" alt="Description" /> -->
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    CONTACT SECTION
+    The form sends data to POST /contact on your Express server.
+    The server then emails you. See server.js for how that works.
+
+    Your email settings live in the .env file (never in the code).
+  ============================================================ -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+
+    <div class="contact-grid">
+
+      <!-- Left column: info and social links -->
+      <div class="contact-info">
+        <h2 class="section-title">Let's talk.</h2>
+        <p>Fill out the form or reach me through any of the links below.</p>
+
+        <!-- ============================================================
+          SOCIAL LINKS
+          Change the href values to your actual profile URLs.
+          To remove a link, delete the whole <a> block.
+          To add a new one, copy an existing <a> block and change the icon + URL.
+          Font Awesome icon reference: fontawesome.com/icons
+        ============================================================ -->
+        <div class="social-links">
+          <a href="https://github.com/yourusername" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://linkedin.com/in/yourusername" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://twitter.com/yourusername" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-x-twitter"></i> Twitter / X
+          </a>
+          <a href="mailto:you@email.com" class="social-link"> <!-- ← change email -->
+            <i class="fa fa-envelope"></i> you@email.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column: the form -->
+      <div>
+        <!--
+          This form submits via JavaScript (in script.js) to POST /contact
+          on your Express server. No page reload needed.
+        -->
+        <form id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Jane Smith"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="jane@example.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="What's on your mind?"
+              required
+              rows="5"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-loading" hidden>Sending…</span>
+          </button>
+
+          <!-- Success / error messages shown by script.js -->
+          <p class="form-status success" id="form-success" hidden>
+            ✓ Message sent! I'll get back to you soon.
+          </p>
+          <p class="form-status error" id="form-error" hidden>
+            Something went wrong. Please try again or email me directly.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    FOOTER
+    ← Change "Your Name" and the year
+  ============================================================ -->
+  <footer>
+    <p>© 2025 Collin Shen. All rights reserved.</p>
+  </footer>
+
+
+  <!-- JavaScript (loaded at the bottom so the page renders first) -->
+  <script src="script.js"></script>
+
+</body>
+</html>

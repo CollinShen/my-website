@@ -1,0 +1,4 @@
+Put your resume PDF here, named "resume.pdf".
+
+It will be downloadable from the About section of the site.
+URL will be: /files/resume.pdf
