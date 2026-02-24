@@ -1,91 +1,66 @@
 // ================================================================
-// script.js — frontend JavaScript
+// script.js
 //
-//   1. Mobile nav toggle
-//   2. Navbar scroll effect
-//   3. Active nav link highlighting
-//   4. Scroll fade-in animations
-//   5. Contact form submission
-//   6. Gallery lightbox
+//   1. Nav (mobile toggle, scroll shadow, active link)
+//   2. Scroll fade-in
+//   3. Timeline accordion
+//   4. Contact form
+//   5. Photo gallery lightbox
+//   6. Instagram feed
+//   7. Journey timeline (loaded from /api/journey/public)
+//   8. Spotify widget (now playing + top tracks/artists)
 // ================================================================
 
 
 // ================================================================
-// 1. MOBILE NAV TOGGLE
-// Clicking the hamburger adds/removes .open on the nav-links list.
-// CSS uses .open to show/hide the menu on small screens.
+// 1. NAV
 // ================================================================
+const navbar    = document.getElementById('navbar');
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks  = document.getElementById('nav-links');
 
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    navToggle.classList.toggle('open', isOpen);
-    navToggle.setAttribute('aria-expanded', isOpen);
+navToggle?.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+});
+
+navLinks?.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
   });
-
-  // Close menu when any link is clicked
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      navToggle.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', false);
-    });
-  });
-}
-
-
-// ================================================================
-// 2. NAVBAR SCROLL SHADOW
-// Adds a subtle shadow to the nav once the user scrolls down.
-// Controlled by the .scrolled class — style it in style.css.
-// ================================================================
-const navbar = document.getElementById('navbar');
+});
 
 window.addEventListener('scroll', () => {
   navbar?.classList.toggle('scrolled', window.scrollY > 20);
 }, { passive: true });
 
-
-// ================================================================
-// 3. ACTIVE NAV LINK
-// Highlights the nav link for whichever section is currently
-// in view. Uses IntersectionObserver for performance.
-//
-// TO ADD MORE SECTIONS: just give them an id and add a nav link
-// with href="#that-id" — this code handles the rest automatically.
-// ================================================================
-const sections  = document.querySelectorAll('section[id]');
+// Active nav link
+const sections   = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-link');
 
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAnchors.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
-      });
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${e.target.id}`));
     }
   });
-}, { rootMargin: '-40% 0px -55% 0px' });
-
-sections.forEach(s => sectionObserver.observe(s));
+}, { rootMargin: '-40% 0px -55% 0px' }).observe && sections.forEach(s => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting)
+        navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${e.target.id}`));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' }).observe(s);
+});
 
 
 // ================================================================
-// 4. SCROLL FADE-IN ANIMATIONS
-// Any element with class="fade-in" will animate into view.
-// Add it to any HTML element you want to animate.
-//
-// TO DISABLE: remove class="fade-in" from elements in index.html
+// 2. SCROLL FADE-IN
 // ================================================================
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target); // only animate once
-    }
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
@@ -93,118 +68,324 @@ document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 
 // ================================================================
-// 5. CONTACT FORM
-// Sends form data to POST /contact on the Express server.
-// Shows success/error messages without reloading the page.
-//
-// TO TEST WITHOUT EMAIL: comment out the fetch block and just
-// log the data: console.log({ name, email, message })
+// 3. TIMELINE ACCORDION (career section)
+// ================================================================
+document.querySelectorAll('.tl-header').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.tl-item');
+    const isOpen = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+});
+
+
+// ================================================================
+// 4. CONTACT FORM
 // ================================================================
 const contactForm = document.getElementById('contact-form');
 const submitBtn   = document.getElementById('submit-btn');
 const formSuccess = document.getElementById('form-success');
 const formError   = document.getElementById('form-error');
 
-if (contactForm) {
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+contactForm?.addEventListener('submit', async e => {
+  e.preventDefault();
+  formSuccess.hidden = formError.hidden = true;
 
-    // Hide previous status messages
-    formSuccess.hidden = true;
-    formError.hidden   = true;
+  const name    = contactForm.name.value.trim();
+  const email   = contactForm.email.value.trim();
+  const message = contactForm.message.value.trim();
 
-    const name    = contactForm.name.value.trim();
-    const email   = contactForm.email.value.trim();
-    const message = contactForm.message.value.trim();
+  if (!name || !email || !message) {
+    formError.textContent = 'Please fill in all fields.'; formError.hidden = false; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    formError.textContent = 'Please enter a valid email.'; formError.hidden = false; return;
+  }
 
-    // Basic validation
-    if (!name || !email || !message) {
-      formError.textContent = 'Please fill in all fields.';
-      formError.hidden = false;
-      return;
-    }
+  const btnText    = submitBtn.querySelector('.btn-text');
+  const btnLoading = submitBtn.querySelector('.btn-loading');
+  submitBtn.disabled = true; btnText.hidden = true; btnLoading.hidden = false;
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      formError.textContent = 'Please enter a valid email address.';
-      formError.hidden = false;
-      return;
-    }
+  try {
+    const res  = await fetch('/contact', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    });
+    const data = await res.json();
+    if (res.ok) { formSuccess.hidden = false; contactForm.reset(); }
+    else { formError.textContent = data.error || 'Something went wrong.'; formError.hidden = false; }
+  } catch { formError.textContent = 'Could not reach the server.'; formError.hidden = false; }
 
-    // Show loading state
-    const btnText    = submitBtn.querySelector('.btn-text');
-    const btnLoading = submitBtn.querySelector('.btn-loading');
-    submitBtn.disabled = true;
-    btnText.hidden     = true;
-    btnLoading.hidden  = false;
-
-    try {
-      const response = await fetch('/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        formSuccess.hidden = false;
-        contactForm.reset();
-      } else {
-        formError.textContent = data.error || 'Something went wrong.';
-        formError.hidden = false;
-      }
-    } catch (err) {
-      console.error('Form error:', err);
-      formError.textContent = 'Could not reach the server. Please try again later.';
-      formError.hidden = false;
-    }
-
-    // Restore button
-    submitBtn.disabled = false;
-    btnText.hidden     = false;
-    btnLoading.hidden  = true;
-  });
-}
+  submitBtn.disabled = false; btnText.hidden = false; btnLoading.hidden = true;
+});
 
 
 // ================================================================
-// 6. GALLERY LIGHTBOX
-// Clicking any .ig-card img opens it fullscreen.
-// Press Escape or click anywhere to close.
-//
-// TO DISABLE: delete this whole block.
+// 5. PHOTO GALLERY LIGHTBOX
 // ================================================================
 const lightbox    = document.createElement('div');
+lightbox.id       = 'lightbox';
 const lightboxImg = document.createElement('img');
-
-Object.assign(lightbox.style, {
-  display: 'none', position: 'fixed', inset: '0',
-  zIndex: '999', background: 'rgba(42,31,20,0.92)',
-  alignItems: 'center', justifyContent: 'center', cursor: 'zoom-out'
-});
-
-Object.assign(lightboxImg.style, {
-  maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain',
-  border: '1px solid rgba(255,255,255,0.1)'
-});
-
 lightbox.appendChild(lightboxImg);
 document.body.appendChild(lightbox);
 
-document.querySelectorAll('.ig-card img').forEach(img => {
-  img.style.cursor = 'zoom-in';
-  img.addEventListener('click', () => {
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightbox.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+function openLightbox(src, alt) {
+  lightboxImg.src = src; lightboxImg.alt = alt || '';
+  lightbox.classList.add('open'); document.body.style.overflow = 'hidden';
+}
+function closeLightbox() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+
+function initGallery() {
+  document.querySelectorAll('#photo-gallery .gallery-item img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
   });
-});
+}
+initGallery();
 
 lightbox.addEventListener('click', closeLightbox);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-function closeLightbox() {
-  lightbox.style.display = 'none';
-  document.body.style.overflow = '';
+
+// ================================================================
+// 6. INSTAGRAM FEED
+// ================================================================
+async function loadInstagramFeed() {
+  const feed    = document.getElementById('ig-feed');
+  const loading = document.getElementById('ig-loading');
+  if (!feed) return;
+
+  try {
+    const res  = await fetch('/api/instagram');
+    const data = await res.json();
+    loading?.remove();
+
+    if (!res.ok || data.error) {
+      feed.innerHTML = `<div class="ig-setup"><i class="fab fa-instagram"></i><strong>Instagram not connected yet</strong><span>Add INSTAGRAM_TOKEN to .env — see server.js for instructions.</span></div>`;
+      return;
+    }
+
+    const posts = data.data || [];
+    if (!posts.length) { feed.innerHTML = `<div class="ig-setup"><i class="fab fa-instagram"></i><span>No posts found.</span></div>`; return; }
+
+    posts.forEach(post => {
+      const imgSrc  = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+      const caption = post.caption ? post.caption.slice(0, 120) + (post.caption.length > 120 ? '…' : '') : '';
+      const a = document.createElement('a');
+      a.className = `ig-post${post.media_type === 'VIDEO' ? ' video' : ''}`;
+      a.href = post.permalink; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.innerHTML = `<img src="${imgSrc}" alt="${caption}" loading="lazy" /><div class="ig-post-overlay"><span>${caption}</span></div>`;
+      feed.appendChild(a);
+    });
+  } catch (err) {
+    console.error('Instagram error:', err);
+    if (loading) loading.innerHTML = `<i class="fab fa-instagram"></i><span>Could not load posts.</span>`;
+  }
 }
+loadInstagramFeed();
+
+
+// ================================================================
+// 7. JOURNEY TIMELINE
+// Fetches entries from /api/journey/public and renders them.
+// The admin page (/admin.html) is where you add new entries.
+// ================================================================
+async function loadJourney() {
+  const container = document.getElementById('wl-timeline-container');
+  if (!container) return;
+
+  try {
+    const res     = await fetch('/api/journey/public');
+    const entries = await res.json();
+
+    if (!entries.length) {
+      container.innerHTML = `
+        <div class="wl-empty">
+          <p>No entries yet — add your first one in the <a href="/admin.html">admin panel</a>.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = '';
+
+    entries.forEach((entry, i) => {
+      const isLast  = i === entries.length - 1;
+      const badgeClass = entry.badgeStyle === 'milestone' ? 'wl-badge milestone' : 'wl-badge';
+
+      const div = document.createElement('div');
+      div.className = 'wl-entry';
+      div.innerHTML = `
+        <div class="wl-marker">
+          <div class="wl-dot"></div>
+          ${!isLast ? '<div class="wl-line"></div>' : ''}
+        </div>
+        <div class="wl-body">
+          <div class="wl-meta">
+            <span class="wl-date">${formatDate(entry.date)}</span>
+            <span class="wl-weight">${entry.weight} lbs</span>
+            ${entry.badge ? `<span class="${badgeClass}">${entry.badge}</span>` : ''}
+          </div>
+          ${entry.note ? `<p class="wl-note">${entry.note}</p>` : ''}
+          ${entry.photo ? `
+            <div class="wl-photo">
+              <img src="${entry.photo}" alt="${entry.date} progress photo" loading="lazy" />
+            </div>` : ''}
+        </div>`;
+
+      // Photo click → lightbox
+      const img = div.querySelector('.wl-photo img');
+      if (img) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openLightbox(img.src, img.alt));
+      }
+
+      container.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error('Journey load error:', err);
+    container.innerHTML = `<p style="color:var(--faint);font-size:0.85rem">Could not load journey entries.</p>`;
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  // dateStr is YYYY-MM-DD from the date input
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const d = new Date(year, month - 1, day);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+loadJourney();
+
+
+// ================================================================
+// 8. SPOTIFY WIDGET
+//
+// Shows: currently playing track + top artists/tracks with
+// a time range toggle (Last 4 Weeks / 6 Months / All Time).
+//
+// If Spotify isn't connected yet, shows a setup message.
+// ================================================================
+let currentSpotifyRange = 'short_term';
+
+async function loadNowPlaying() {
+  const widget = document.getElementById('spotify-now-playing');
+  if (!widget) return;
+
+  try {
+    const res  = await fetch('/api/spotify/now-playing');
+    const data = await res.json();
+
+    if (!res.ok || data.error === 'not_configured') {
+      widget.innerHTML = `
+        <div class="spotify-setup">
+          <i class="fab fa-spotify"></i>
+          <div>
+            <strong>Spotify not connected</strong>
+            <span>Visit <code>/api/spotify/auth</code> to set it up — see server.js for instructions.</span>
+          </div>
+        </div>`;
+      return;
+    }
+
+    if (!data.isPlaying) {
+      widget.innerHTML = `
+        <div class="spotify-offline">
+          <i class="fab fa-spotify"></i>
+          <span>Not listening right now</span>
+        </div>`;
+      return;
+    }
+
+    const pct = Math.round((data.progressMs / data.durationMs) * 100);
+    widget.innerHTML = `
+      <a class="spotify-track" href="${data.url}" target="_blank" rel="noopener">
+        ${data.albumArt ? `<img src="${data.albumArt}" alt="${data.album}" class="spotify-art" />` : ''}
+        <div class="spotify-info">
+          <div class="spotify-now-label"><i class="fab fa-spotify"></i> Now Playing</div>
+          <div class="spotify-track-name">${data.track}</div>
+          <div class="spotify-artist">${data.artist}</div>
+          <div class="spotify-bar-wrap">
+            <div class="spotify-bar"><div class="spotify-bar-fill" style="width:${pct}%"></div></div>
+          </div>
+        </div>
+      </a>`;
+
+  } catch (err) {
+    console.error('Spotify now-playing error:', err);
+  }
+}
+
+async function loadTopSpotify(range) {
+  currentSpotifyRange = range;
+  const container = document.getElementById('spotify-top-container');
+  if (!container) return;
+
+  // Update active tab button
+  document.querySelectorAll('.spotify-range-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.range === range);
+  });
+
+  container.innerHTML = `<div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>`;
+
+  try {
+    const res  = await fetch(`/api/spotify/top?range=${range}`);
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      container.innerHTML = `<div class="spotify-setup"><span>Not connected. See server.js for setup.</span></div>`;
+      return;
+    }
+
+    const rangeLabel = { short_term: 'Last 4 Weeks', medium_term: 'Last 6 Months', long_term: 'All Time' }[range];
+
+    container.innerHTML = `
+      <div class="spotify-columns">
+        <div class="spotify-col">
+          <p class="spotify-col-label">Top Artists</p>
+          <div class="spotify-artist-list">
+            ${data.artists.map((a, i) => `
+              <a class="spotify-artist-item" href="${a.url}" target="_blank" rel="noopener">
+                <span class="spotify-rank">${i + 1}</span>
+                ${a.image ? `<img src="${a.image}" alt="${a.name}" class="spotify-artist-img" />` : '<div class="spotify-artist-img-placeholder"></div>'}
+                <div class="spotify-artist-info">
+                  <span class="spotify-artist-name">${a.name}</span>
+                  ${a.genres.length ? `<span class="spotify-genres">${a.genres.join(', ')}</span>` : ''}
+                </div>
+              </a>`).join('')}
+          </div>
+        </div>
+        <div class="spotify-col">
+          <p class="spotify-col-label">Top Tracks</p>
+          <div class="spotify-track-list">
+            ${data.tracks.map((t, i) => `
+              <a class="spotify-track-item" href="${t.url}" target="_blank" rel="noopener">
+                <span class="spotify-rank">${i + 1}</span>
+                ${t.albumArt ? `<img src="${t.albumArt}" alt="${t.album}" class="spotify-album-art" />` : '<div class="spotify-album-art-placeholder"></div>'}
+                <div class="spotify-track-info">
+                  <span class="spotify-track-name">${t.name}</span>
+                  <span class="spotify-track-artist">${t.artist}</span>
+                </div>
+              </a>`).join('')}
+          </div>
+        </div>
+      </div>`;
+
+  } catch (err) {
+    console.error('Spotify top error:', err);
+    container.innerHTML = `<p style="color:var(--faint);font-size:0.85rem;padding:1rem">Could not load Spotify data.</p>`;
+  }
+}
+
+// Wire up range buttons
+document.querySelectorAll('.spotify-range-btn').forEach(btn => {
+  btn.addEventListener('click', () => loadTopSpotify(btn.dataset.range));
+});
+
+// Initial load
+loadNowPlaying();
+loadTopSpotify('short_term');
+
+// Refresh now-playing every 30 seconds
+setInterval(loadNowPlaying, 30000);

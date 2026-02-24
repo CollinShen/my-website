@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Journey Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAF7F2; --surface: #F3EDE3; --divider: #E2D8CC;
+      --text: #2A1F14; --muted: #8A7460; --faint: #C0AE98;
+      --sage: #5C7A52; --sage-light: #EBF1E8;
+      --terra: #B85C38; --terra-light: #F5EAE4;
+      --font-head: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── LOGIN SCREEN ── */
+    #login-screen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .login-box {
+      background: var(--surface);
+      border: 1.5px solid var(--divider);
+      padding: 3rem;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-box p { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; }
+
+    /* ── ADMIN SCREEN ── */
+    #admin-screen { display: none; max-width: 860px; margin: 0 auto; padding: 3rem 2rem; width: 100%; }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .admin-header h1 { font-family: var(--font-head); font-size: 2rem; font-weight: 300; }
+    .admin-header a { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .admin-header a:hover { color: var(--terra); }
+
+    /* ── FORM ── */
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--divider);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .card h2 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--terra);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="password"],
+    textarea,
+    select {
+      background: var(--bg);
+      border: 1.5px solid var(--divider);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus, select:focus { border-color: var(--sage); }
+    textarea { resize: vertical; min-height: 100px; }
+
+    /* Photo upload area */
+    .photo-upload {
+      border: 2px dashed var(--divider);
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .photo-upload:hover { border-color: var(--sage); background: var(--sage-light); }
+    .photo-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .photo-upload-text { font-size: 0.85rem; color: var(--muted); pointer-events: none; }
+    .photo-upload-text strong { display: block; font-size: 1rem; color: var(--text); margin-bottom: 0.3rem; font-weight: 400; }
+
+    /* Preview */
+    #photo-preview {
+      display: none;
+      margin-top: 1rem;
+      max-height: 200px;
+      object-fit: cover;
+      border: 1px solid var(--divider);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--sage);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--sage);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn:hover { background: transparent; color: var(--sage); }
+    .btn-danger { background: var(--terra); border-color: var(--terra); }
+    .btn-danger:hover { background: transparent; color: var(--terra); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status messages */
+    .status {
+      font-size: 0.85rem;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .status.success { background: var(--sage-light); color: var(--sage); border: 1px solid rgba(92,122,82,0.3); }
+    .status.error   { background: var(--terra-light); color: var(--terra); border: 1px solid rgba(184,92,56,0.3); }
+
+    /* ── ENTRIES LIST ── */
+    .entries-list { display: flex; flex-direction: column; gap: 1px; background: var(--divider); border: 1.5px solid var(--divider); }
+
+    .entry-row {
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 110px 100px 1fr 80px 48px;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      transition: background 0.15s;
+    }
+
+    .entry-row:hover { background: var(--surface); }
+
+    .entry-thumb {
+      width: 48px; height: 48px;
+      object-fit: cover;
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .entry-thumb-placeholder {
+      width: 48px; height: 48px;
+      background: var(--surface);
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--faint);
+      font-size: 1rem;
+    }
+
+    .entry-date { font-size: 0.82rem; color: var(--muted); }
+    .entry-weight { font-family: var(--font-head); font-size: 1.2rem; }
+    .entry-note { font-size: 0.82rem; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .entry-badge {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: var(--terra-light);
+      color: var(--terra);
+      text-align: center;
+    }
+
+    .delete-btn {
+      background: none;
+      border: 1px solid var(--divider);
+      color: var(--faint);
+      width: 32px; height: 32px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .delete-btn:hover { border-color: var(--terra); color: var(--terra); }
+
+    .no-entries {
+      background: var(--bg);
+      padding: 3rem;
+      text-align: center;
+      color: var(--faint);
+      font-size: 0.85rem;
+    }
+
+    .entries-header {
+      display: grid;
+      grid-template-columns: 110px 100px 1fr 80px 48px;
+      gap: 1rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--divider);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .entry-row { grid-template-columns: 48px 1fr 36px; }
+      .entry-row .entry-date, .entry-row .entry-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+    LOGIN SCREEN
+    Password is set in your .env file as ADMIN_PASSWORD
+  ============================================================ -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>Journey Admin</h1>
+      <p>Enter your admin password to continue.</p>
+      <div class="form-group" style="margin-bottom:1rem; text-align:left">
+        <label for="pw-input">Password</label>
+        <input type="password" id="pw-input" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn" id="login-btn" style="width:100%">Login</button>
+      <p class="status error" id="login-error">Incorrect password.</p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+    ADMIN SCREEN (shown after login)
+  ============================================================ -->
+  <div id="admin-screen">
+
+    <div class="admin-header">
+      <h1>Journey Log</h1>
+      <a href="/" id="logout-link">← Back to site</a>
+    </div>
+
+    <!-- ADD ENTRY FORM -->
+    <div class="card">
+      <h2>Log a New Entry</h2>
+      <form id="entry-form" enctype="multipart/form-data">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="entry-date">Date</label>
+            <input type="date" id="entry-date" name="date" required />
+          </div>
+          <div class="form-group">
+            <label for="entry-weight">Weight (lbs)</label>
+            <input type="number" id="entry-weight" name="weight" step="0.1" placeholder="e.g. 243.5" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="entry-badge">Label (optional)</label>
+            <input type="text" id="entry-badge" name="badge" placeholder="e.g. Week 1, -5 lbs, Milestone" />
+          </div>
+          <div class="form-group">
+            <label for="entry-badge-style">Label Style</label>
+            <select id="entry-badge-style" name="badgeStyle">
+              <option value="normal">Orange (default)</option>
+              <option value="milestone">Green (milestone)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="entry-note">Note</label>
+            <textarea id="entry-note" name="note" placeholder="How are you feeling? What did you do today?"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.25rem">
+          <label>Photo (optional)</label>
+          <div class="photo-upload">
+            <input type="file" id="entry-photo" name="photo" accept="image/*" />
+            <div class="photo-upload-text">
+              <strong>Click to upload a photo</strong>
+              JPG, PNG, WEBP — max 10MB
+            </div>
+          </div>
+          <img id="photo-preview" alt="Preview" />
+        </div>
+
+        <button type="submit" class="btn" id="submit-btn">
+          <span class="btn-text">Add Entry</span>
+          <span class="btn-loading" hidden>Saving…</span>
+        </button>
+        <div class="status success" id="form-success">✓ Entry added! Reload the main site to see it.</div>
+        <div class="status error"   id="form-error">Something went wrong. Try again.</div>
+
+      </form>
+    </div>
+
+    <!-- EXISTING ENTRIES -->
+    <div class="card">
+      <h2>All Entries</h2>
+      <div id="entries-container">
+        <div class="no-entries">Loading…</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <script>
+    // ── AUTH ──────────────────────────────────────────────────────
+    let adminPassword = '';
+
+    // Set today's date as default
+    document.getElementById('entry-date').valueAsDate = new Date();
+
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const pw = document.getElementById('pw-input').value;
+      if (!pw) return;
+
+      // Test password by making an authenticated request
+      const res = await fetch('/api/journey', {
+        headers: { 'x-admin-password': pw }
+      });
+
+      if (res.ok) {
+        adminPassword = pw;
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-screen').style.display = 'block';
+        loadEntries();
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    });
+
+    // Allow Enter key on password field
+    document.getElementById('pw-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('login-btn').click();
+    });
+
+
+    // ── PHOTO PREVIEW ─────────────────────────────────────────────
+    document.getElementById('entry-photo').addEventListener('change', function() {
+      const file = this.files[0];
+      const preview = document.getElementById('photo-preview');
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+      }
+    });
+
+
+    // ── SUBMIT FORM ───────────────────────────────────────────────
+    document.getElementById('entry-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn        = document.getElementById('submit-btn');
+      const btnText    = btn.querySelector('.btn-text');
+      const btnLoading = btn.querySelector('.btn-loading');
+      const success    = document.getElementById('form-success');
+      const error      = document.getElementById('form-error');
+
+      success.style.display = 'none';
+      error.style.display   = 'none';
+      btn.disabled  = true;
+      btnText.hidden    = true;
+      btnLoading.hidden = false;
+
+      const formData = new FormData(e.target);
+
+      try {
+        const res = await fetch('/api/journey', {
+          method: 'POST',
+          headers: { 'x-admin-password': adminPassword },
+          body: formData
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          success.style.display = 'block';
+          e.target.reset();
+          document.getElementById('photo-preview').style.display = 'none';
+          document.getElementById('entry-date').valueAsDate = new Date();
+          loadEntries();
+        } else {
+          error.textContent = data.error || 'Something went wrong.';
+          error.style.display = 'block';
+        }
+      } catch (err) {
+        error.textContent = 'Could not reach server.';
+        error.style.display = 'block';
+      }
+
+      btn.disabled  = false;
+      btnText.hidden    = false;
+      btnLoading.hidden = true;
+    });
+
+
+    // ── LOAD ENTRIES ──────────────────────────────────────────────
+    async function loadEntries() {
+      const container = document.getElementById('entries-container');
+
+      const res  = await fetch('/api/journey', {
+        headers: { 'x-admin-password': adminPassword }
+      });
+      const data = await res.json();
+
+      if (!data.length) {
+        container.innerHTML = '<div class="no-entries">No entries yet. Add your first one above!</div>';
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="entries-header">
+          <span>Photo</span><span>Date</span><span>Note</span><span>Label</span><span></span>
+        </div>
+        <div class="entries-list" id="entries-list"></div>`;
+
+      const list = document.getElementById('entries-list');
+
+      data.forEach(entry => {
+        const row = document.createElement('div');
+        row.className = 'entry-row';
+        row.innerHTML = `
+          ${entry.photo
+            ? `<img class="entry-thumb" src="${entry.photo}" alt="${entry.date}" />`
+            : `<div class="entry-thumb-placeholder">📷</div>`}
+          <span class="entry-date">${entry.date}</span>
+          <span class="entry-note">${entry.weight} lbs${entry.note ? ' · ' + entry.note : ''}</span>
+          <span class="entry-badge">${entry.badge || ''}</span>
+          <button class="delete-btn" data-id="${entry.id}" title="Delete">✕</button>`;
+        list.appendChild(row);
+      });
+
+      // Wire up delete buttons
+      list.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (!confirm('Delete this entry?')) return;
+          await fetch(`/api/journey/${btn.dataset.id}`, {
+            method: 'DELETE',
+            headers: { 'x-admin-password': adminPassword }
+          });
+          loadEntries();
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

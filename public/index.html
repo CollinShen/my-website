@@ -3,14 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ============================================================
-    PAGE TITLE — change "Collin Shen" to your name throughout
-  ============================================================ -->
   <title>Collin Shen</title>
-  <meta name="description" content="Collin Shen — Software Developer & Content Creator" />
-
-  <!-- Fonts: Cormorant Garamond (headings) + Jost (body) -->
+  <meta name="description" content="Collin Shen — Machine Learning Engineer, CMU" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -22,7 +16,7 @@
     NAV
   ============================================================ -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">Collin Shen</a> <!-- ← your name -->
+    <a href="#hero" class="nav-logo">Collin Shen</a>
     <button class="nav-toggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -35,66 +29,75 @@
 
 
   <!-- ============================================================
-    HERO
-    ← Edit the subtitle and the two lines of description
+    HERO — split layout: text left, photo right
+    ← To add your photo: put it at public/images/profile.jpg
+       Then uncomment the <img> tag below and delete the placeholder div
   ============================================================ -->
   <section id="hero">
-
-    <!-- Botanical SVG — left side -->
     <div class="botanical-left" aria-hidden="true">
       <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 490 C100 390 40 360 20 260 C0 160 60 100 100 20" stroke="currentColor" stroke-width="1.5" fill="none"/>
         <path d="M100 390 C75 370 30 365 15 335" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 330 C130 315 165 305 175 275" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 270 C65 255 25 248 10 218" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 210 C135 198 162 178 168 148" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 150 C68 138 40 118 32 88" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 320 C130 305 165 295 175 265" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 255 C65 240 25 233 10 203" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 195 C135 183 162 163 168 133" stroke="currentColor" stroke-width="1" fill="none"/>
         <ellipse cx="15" cy="335" rx="14" ry="9" transform="rotate(-25 15 335)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="175" cy="275" rx="15" ry="9" transform="rotate(18 175 275)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="10" cy="218" rx="12" ry="8" transform="rotate(-30 10 218)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="168" cy="148" rx="14" ry="9" transform="rotate(22 168 148)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="32" cy="88" rx="12" ry="8" transform="rotate(-20 32 88)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="175" cy="265" rx="15" ry="9" transform="rotate(18 175 265)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="10" cy="203" rx="12" ry="8" transform="rotate(-30 10 203)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="168" cy="133" rx="14" ry="9" transform="rotate(22 168 133)" stroke="currentColor" stroke-width="1" fill="none"/>
         <circle cx="100" cy="20" r="7" stroke="currentColor" stroke-width="1" fill="none"/>
         <circle cx="100" cy="20" r="2.5" fill="currentColor" opacity="0.5"/>
         <path d="M93 13 C90 8 95 5 100 10 C105 5 110 8 107 13" stroke="currentColor" stroke-width="0.8" fill="none"/>
         <path d="M93 27 C90 32 95 35 100 30 C105 35 110 32 107 27" stroke="currentColor" stroke-width="0.8" fill="none"/>
-        <path d="M87 20 C82 17 79 22 84 24" stroke="currentColor" stroke-width="0.8" fill="none"/>
-        <path d="M113 20 C118 17 121 22 116 24" stroke="currentColor" stroke-width="0.8" fill="none"/>
       </svg>
     </div>
-
-    <!-- Botanical SVG — right side -->
     <div class="botanical-right" aria-hidden="true">
       <svg viewBox="0 0 200 500" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 490 C100 390 160 360 180 260 C200 160 140 100 100 20" stroke="currentColor" stroke-width="1.5" fill="none"/>
         <path d="M100 400 C130 380 175 372 188 342" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 340 C70 325 35 318 22 288" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 278 C138 265 168 248 172 218" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 218 C62 205 35 185 28 155" stroke="currentColor" stroke-width="1" fill="none"/>
-        <path d="M100 158 C138 148 162 128 166 98" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 330 C70 315 35 308 22 278" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 265 C138 252 168 235 172 205" stroke="currentColor" stroke-width="1" fill="none"/>
+        <path d="M100 200 C62 187 35 167 28 137" stroke="currentColor" stroke-width="1" fill="none"/>
         <ellipse cx="188" cy="342" rx="14" ry="9" transform="rotate(22 188 342)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="22" cy="288" rx="13" ry="8" transform="rotate(-18 22 288)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="172" cy="218" rx="15" ry="9" transform="rotate(28 172 218)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="28" cy="155" rx="12" ry="8" transform="rotate(-22 28 155)" stroke="currentColor" stroke-width="1" fill="none"/>
-        <ellipse cx="166" cy="98" rx="13" ry="8" transform="rotate(20 166 98)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="22" cy="278" rx="13" ry="8" transform="rotate(-18 22 278)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="172" cy="205" rx="15" ry="9" transform="rotate(28 172 205)" stroke="currentColor" stroke-width="1" fill="none"/>
+        <ellipse cx="28" cy="137" rx="12" ry="8" transform="rotate(-22 28 137)" stroke="currentColor" stroke-width="1" fill="none"/>
         <circle cx="100" cy="20" r="7" stroke="currentColor" stroke-width="1" fill="none"/>
         <circle cx="100" cy="20" r="2.5" fill="currentColor" opacity="0.5"/>
         <path d="M93 13 C90 8 95 5 100 10 C105 5 110 8 107 13" stroke="currentColor" stroke-width="0.8" fill="none"/>
         <path d="M93 27 C90 32 95 35 100 30 C105 35 110 32 107 27" stroke="currentColor" stroke-width="0.8" fill="none"/>
-        <path d="M87 20 C82 17 79 22 84 24" stroke="currentColor" stroke-width="0.8" fill="none"/>
-        <path d="M113 20 C118 17 121 22 116 24" stroke="currentColor" stroke-width="0.8" fill="none"/>
       </svg>
     </div>
 
-    <div class="hero-content">
-      <p class="hero-eyebrow">Developer · Creator · Student</p> <!-- ← edit tagline -->
-      <h1 class="hero-title">Collin<br><em>Shen.</em></h1>   <!-- ← your name -->
-      <p class="hero-sub">
-        Carnegie Mellon student building software by day,<br>creating content by night.
-      </p> <!-- ← edit this -->
-      <div class="hero-ctas">
-        <a href="#coding-career" class="btn">View My Work</a>
-        <a href="#my-content"    class="btn btn-outline">My Content</a>
+    <div class="hero-inner">
+      <!-- LEFT: Text -->
+      <div class="hero-text">
+        <p class="hero-eyebrow">Machine Learning Engineer · CMU</p>
+        <h1 class="hero-title">Collin<br><em>Shen.</em></h1>
+        <p class="hero-sub">
+          Building intelligent systems at Carnegie Mellon.<br>
+          Predictive modeling, NLP, and real-time ML.
+        </p>
+        <div class="hero-ctas">
+          <a href="#coding-career" class="btn">View My Work</a>
+          <a href="#my-content"    class="btn btn-outline">My Content</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Profile photo -->
+      <div class="hero-photo-wrap">
+        <!--
+          ★ ADD YOUR PHOTO:
+          1. Put your photo at:  public/images/profile.jpg
+          2. Delete the .photo-placeholder div below
+          3. Uncomment the <img> tag
+
+          <img src="images/profile.jpg" alt="Collin Shen" class="hero-photo" />
+        -->
+        <div class="photo-placeholder hero-photo">
+          <i class="fa fa-user"></i>
+          <span>Add public/images/profile.jpg</span>
+        </div>
       </div>
     </div>
 
@@ -107,139 +110,349 @@
 
   <!-- ============================================================
     SECTION 1: MY CODING CAREER
-    Recruiter-focused. Edit skills, experience, and projects.
+    Recruiter view — timeline, skills, projects, resume
   ============================================================ -->
   <section id="coding-career">
+
     <div class="section-intro">
       <div class="section-num">01</div>
       <div>
         <h2 class="section-title">My Coding<br><em>Career</em></h2>
         <p class="section-desc">
-          Software developer focused on building clean, scalable applications.
-          Currently studying Computer Science at Carnegie Mellon University.
-        </p> <!-- ← edit -->
+          Machine Learning Engineer focused on predictive modeling, NLP, and scalable systems.
+          Currently pursuing my M.S. at Carnegie Mellon University.
+        </p>
       </div>
     </div>
 
-    <!-- SKILLS
-         ← Add/remove <span class="skill-tag"> elements freely -->
+    <!-- ── INTERACTIVE TIMELINE ──────────────────────────────────
+      Click any timeline item to expand/collapse its details.
+      To add a new entry: copy a <div class="tl-item"> block.
+      Order is newest first (top).
+    ─────────────────────────────────────────────────────────── -->
     <div class="career-block">
-      <h3 class="block-label">Skills & Technologies</h3>
+      <h3 class="block-label">Timeline</h3>
+      <p class="timeline-hint">Click any item to expand details</p>
+
+      <div class="timeline">
+
+        <!-- CMU -->
+        <div class="tl-item" data-open="false">
+          <div class="tl-marker">
+            <div class="tl-dot edu"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <button class="tl-header" aria-expanded="false">
+              <div class="tl-header-left">
+                <!--
+                  ★ CMU LOGO: put your logo at public/images/logos/cmu.png
+                  Then replace the .tl-logo-placeholder div with:
+                  <img src="images/logos/cmu.png" alt="CMU" class="tl-logo" />
+                -->
+                <div class="tl-logo-placeholder"><i class="fa fa-graduation-cap"></i></div>
+                <div>
+                  <span class="tl-type edu-badge">Education</span>
+                  <h4 class="tl-title">Carnegie Mellon University</h4>
+                  <p class="tl-subtitle">M.S. Computer Engineering in Machine Learning · Pittsburgh, PA</p>
+                </div>
+              </div>
+              <div class="tl-header-right">
+                <span class="tl-date">Aug 2025 – Dec 2026</span>
+                <i class="fa fa-chevron-down tl-chevron"></i>
+              </div>
+            </button>
+            <div class="tl-details">
+              <p>Master of Computer Engineering with a focus in Machine Learning.</p>
+              <div class="tl-tags">
+                <span>Machine Learning</span><span>Deep Learning</span><span>Generative AI</span>
+                <span>LLMs</span><span>Embedded Systems</span><span>Cloud</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wabtec ML Intern -->
+        <div class="tl-item" data-open="false">
+          <div class="tl-marker">
+            <div class="tl-dot work"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <button class="tl-header" aria-expanded="false">
+              <div class="tl-header-left">
+                <!--
+                  ★ WABTEC LOGO: put your logo at public/images/logos/wabtec.png
+                  Then replace the .tl-logo-placeholder div with:
+                  <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
+                -->
+                <div class="tl-logo-placeholder"><i class="fa fa-building"></i></div>
+                <div>
+                  <span class="tl-type work-badge">Work</span>
+                  <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
+                  <p class="tl-subtitle">Machine Learning Engineer Intern · Erie, PA</p>
+                </div>
+              </div>
+              <div class="tl-header-right">
+                <span class="tl-date">May – Aug 2025</span>
+                <i class="fa fa-chevron-down tl-chevron"></i>
+              </div>
+            </button>
+            <div class="tl-details">
+              <ul>
+                <li>Trained XGBoost gradient-boosted model to predict high-dimensional locomotive system outputs, enabling scalable offline inference and design exploration</li>
+                <li>Built feature engineering and cross-validation pipeline using Python, scikit-learn, and Pandas to ensure model robustness across configurations</li>
+                <li>Automated prediction of simulation outputs across multiple configurations, reducing engineering time while preserving model accuracy</li>
+              </ul>
+              <div class="tl-tags">
+                <span>XGBoost</span><span>Python</span><span>scikit-learn</span><span>Pandas</span><span>Predictive Modeling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stevens -->
+        <div class="tl-item" data-open="false">
+          <div class="tl-marker">
+            <div class="tl-dot edu"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <button class="tl-header" aria-expanded="false">
+              <div class="tl-header-left">
+                <!--
+                  ★ STEVENS LOGO: put your logo at public/images/logos/stevens.png
+                  Then replace the .tl-logo-placeholder div with:
+                  <img src="images/logos/stevens.png" alt="Stevens" class="tl-logo" />
+                -->
+                <div class="tl-logo-placeholder"><i class="fa fa-graduation-cap"></i></div>
+                <div>
+                  <span class="tl-type edu-badge">Education</span>
+                  <h4 class="tl-title">Stevens Institute of Technology</h4>
+                  <p class="tl-subtitle">B.S. Computer Science, Minor in Data Science · Hoboken, NJ</p>
+                </div>
+              </div>
+              <div class="tl-header-right">
+                <span class="tl-date">Aug 2022 – May 2025</span>
+                <i class="fa fa-chevron-down tl-chevron"></i>
+              </div>
+            </button>
+            <div class="tl-details">
+              <p>Completed degree in 3 years (accelerated). Dean's List ×6.</p>
+              <p style="margin-top:0.5rem;">Minor in Data Science. Relevant coursework: Machine/Deep Learning, Generative AI, LLMs, Embedded Systems, Operating Systems, Cloud Computing, Concurrent Programming, Optimization.</p>
+              <div class="tl-tags">
+                <span>Dean's List ×6</span><span>3-Year Accelerated</span><span>Data Science Minor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wabtec SWE Intern -->
+        <div class="tl-item" data-open="false">
+          <div class="tl-marker">
+            <div class="tl-dot work"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <button class="tl-header" aria-expanded="false">
+              <div class="tl-header-left">
+                <!--
+                  ★ WABTEC LOGO (same as above — reuse the same file):
+                  <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
+                -->
+                <div class="tl-logo-placeholder"><i class="fa fa-building"></i></div>
+                <div>
+                  <span class="tl-type work-badge">Work</span>
+                  <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
+                  <p class="tl-subtitle">Software Engineering Intern · Erie, PA</p>
+                </div>
+              </div>
+              <div class="tl-header-right">
+                <span class="tl-date">May – Aug 2024</span>
+                <i class="fa fa-chevron-down tl-chevron"></i>
+              </div>
+            </button>
+            <div class="tl-details">
+              <ul>
+                <li>Developed web-based ticket management system with tree visualization showing organizational hierarchy and real-time employee workload, replacing untracked email-based task assignment</li>
+                <li>Developed random forest model trained on historical ticket data to predict resolution time based on severity, type, and employee workload — providing assignment recommendations to managers</li>
+                <li>Integrated internal ticket database with Django/PostgreSQL backend, enabling predictive assignment and tracking of software defect resolution</li>
+              </ul>
+              <div class="tl-tags">
+                <span>Django</span><span>PostgreSQL</span><span>Random Forest</span><span>Python</span><span>Data Visualization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /timeline -->
+    </div>
+
+    <!-- ── SKILLS ──────────────────────────────────────────────── -->
+    <div class="career-block">
+      <h3 class="block-label">Skills</h3>
       <div class="skills-grid">
         <div class="skill-group">
-          <p class="skill-group-label">Languages</p>
+          <p class="skill-group-label">Machine Learning</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Gradient Boosting</span>
+            <span class="skill-tag">Transformers / BERT</span>
+            <span class="skill-tag">Fine-tuning / LoRA</span>
+            <span class="skill-tag">NLP</span>
+            <span class="skill-tag">Supervised Learning</span>
+            <span class="skill-tag">Surrogate Modeling</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">Feature Engineering</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Systems & Software</p>
           <div class="skill-tags">
             <span class="skill-tag">Python</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Java</span>
-            <span class="skill-tag">C</span>
-            <!-- ← add more -->
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">Frameworks & Tools</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">Express</span>
-            <span class="skill-tag">React</span>
-            <span class="skill-tag">Git</span>
-            <!-- ← add more -->
-          </div>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group-label">Other</p>
-          <div class="skill-tags">
-            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">C / C++</span>
             <span class="skill-tag">SQL</span>
             <span class="skill-tag">Linux</span>
-            <!-- ← add more -->
+            <span class="skill-tag">Kernel Programming</span>
+            <span class="skill-tag">Concurrency</span>
+            <span class="skill-tag">Embedded Systems</span>
+            <span class="skill-tag">Django</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Tools & Frameworks</p>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">scikit-learn</span>
+            <span class="skill-tag">HuggingFace</span>
+            <span class="skill-tag">NumPy / Pandas</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Jupyter</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- EXPERIENCE
-         ← Copy/delete .experience-item blocks as needed -->
+    <!-- ── RESEARCH & PROJECTS ────────────────────────────────── -->
     <div class="career-block">
-      <h3 class="block-label">Experience</h3>
-      <div class="experience-list">
-        <div class="experience-item">
-          <div class="exp-left">
-            <span class="exp-date">2024 — Present</span> <!-- ← dates -->
-          </div>
-          <div class="exp-right">
-            <h4 class="exp-role">Your Role / Title</h4>       <!-- ← role -->
-            <p class="exp-company">Company · Location</p>     <!-- ← company -->
-            <p class="exp-desc">What you built or improved. Keep it to 1–2 impactful sentences.</p>
-          </div>
-        </div>
-        <div class="experience-item">
-          <div class="exp-left">
-            <span class="exp-date">Summer 2023</span>
-          </div>
-          <div class="exp-right">
-            <h4 class="exp-role">Another Role</h4>
-            <p class="exp-company">Another Company · Location</p>
-            <p class="exp-desc">What you learned and contributed here.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECTS
-         ← Copy/delete .project-card blocks as needed -->
-    <div class="career-block">
-      <h3 class="block-label">Projects</h3>
+      <h3 class="block-label">Research & Projects</h3>
       <div class="projects-grid">
+
         <div class="project-card">
           <div class="project-top">
-            <h4 class="project-name">Project Name</h4>
-            <a href="https://github.com/CollinShen" class="project-link" target="_blank"><i class="fa fa-arrow-up-right-from-square"></i></a>
+            <h4 class="project-name">Multimodal Text-to-Audio Generation</h4>
+            <a href="https://github.com/CollinShen" class="project-link" target="_blank" rel="noopener">
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </a>
           </div>
-          <p class="project-desc">What it does and why you built it.</p>
-          <div class="project-tags"><span>Python</span><span>Flask</span><span>SQL</span></div>
+          <p class="project-org">Carnegie Mellon University</p>
+          <p class="project-desc">
+            Fine-tuned Meta MusicGen with LoRA adapters to enable genre + environmental audio prompts,
+            using 3,000+ paired MusicCaps/FSD50K examples. Built training pipeline and feature preprocessing
+            to blend musical and ambient audio for controllable multi-modal generation.
+          </p>
+          <div class="project-tags">
+            <span>PyTorch</span><span>LoRA</span><span>MusicGen</span><span>Generative AI</span>
+          </div>
         </div>
+
         <div class="project-card">
           <div class="project-top">
-            <h4 class="project-name">Another Project</h4>
-            <a href="https://github.com/CollinShen" class="project-link" target="_blank"><i class="fa fa-arrow-up-right-from-square"></i></a>
+            <h4 class="project-name">LLMs in Healthcare</h4>
+            <a href="https://github.com/CollinShen" class="project-link" target="_blank" rel="noopener">
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </a>
           </div>
-          <p class="project-desc">Description of what it does and what's interesting about it.</p>
-          <div class="project-tags"><span>React</span><span>Node.js</span></div>
+          <p class="project-org">Carnegie Mellon University</p>
+          <p class="project-desc">
+            Privacy-preserving de-identification pipeline using fine-tuned BERT-based NER to pseudonymize
+            sensitive patient attributes. Processed 45,000+ clinical notes (MIMIC-III) for secure data
+            sharing and downstream ML training while maintaining HIPAA compliance.
+          </p>
+          <div class="project-tags">
+            <span>BERT</span><span>NER</span><span>HuggingFace</span><span>NLP</span><span>HIPAA</span>
+          </div>
         </div>
+
         <div class="project-card">
           <div class="project-top">
-            <h4 class="project-name">This Website</h4>
-            <a href="https://github.com/CollinShen/my-website" class="project-link" target="_blank"><i class="fa fa-arrow-up-right-from-square"></i></a>
+            <h4 class="project-name">Embedded Realtime Systems</h4>
+            <a href="https://github.com/CollinShen" class="project-link" target="_blank" rel="noopener">
+              <i class="fa fa-arrow-up-right-from-square"></i>
+            </a>
           </div>
-          <p class="project-desc">Personal portfolio built with HTML/CSS/JS and a Node.js/Express backend.</p>
-          <div class="project-tags"><span>HTML</span><span>CSS</span><span>Node.js</span></div>
+          <p class="project-org">Carnegie Mellon University</p>
+          <p class="project-desc">
+            Implemented kernel-level modules and synchronization primitives to coordinate periodic tasks
+            under real-time constraints for deterministic edge ML systems. Designed and tested concurrency
+            mechanisms and periodic scheduling for predictable embedded task execution.
+          </p>
+          <div class="project-tags">
+            <span>C</span><span>Linux Kernel</span><span>RTOS</span><span>Concurrency</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── LEADERSHIP ─────────────────────────────────────────── -->
+    <div class="career-block">
+      <h3 class="block-label">Leadership</h3>
+      <div class="leadership-list">
+        <div class="leadership-item">
+          <h4>Student Government VP of Finance</h4>
+          <p>Stevens Institute of Technology · Oversaw budgeting and financial governance for student organizations, advising allocation decisions across a $2M university-managed budget.</p>
+        </div>
+        <div class="leadership-item">
+          <h4>Badminton Club President</h4>
+          <p>Stevens Institute of Technology · Led club of 40+ members, organized intercollegiate tournaments with regional universities.</p>
+        </div>
+        <div class="leadership-item">
+          <h4>Battery Captain & Center Snare</h4>
+          <p>Stevens Institute of Technology · Coordinated sectional rehearsals and performed at regional competitions.</p>
         </div>
       </div>
     </div>
 
-    <!-- EDUCATION + RESUME -->
+    <!-- ── RESUME DOWNLOAD ────────────────────────────────────── -->
     <div class="career-bottom">
       <div class="education-card">
-        <p class="block-label">Education</p>
-        <h4>Carnegie Mellon University</h4>         <!-- ← school -->
-        <p>B.S. Computer Science · Expected 2027</p><!-- ← degree & year -->
-        <p class="edu-note">Relevant: Data Structures, Algorithms, Systems</p><!-- ← courses -->
+        <!--
+          ★ ADD YOUR HEADSHOT PHOTO HERE (small, beside the resume block):
+          Put your photo at public/images/profile-small.jpg
+          Then replace the .mini-photo-placeholder div with:
+          <img src="images/profile-small.jpg" alt="Collin Shen" class="mini-photo" />
+        -->
+        <div class="mini-photo-placeholder">
+          <i class="fa fa-user"></i>
+        </div>
+        <div>
+          <h4>Collin Shen</h4>
+          <p>Machine Learning Engineer · US Citizen</p>
+          <p class="edu-note">cxshen@andrew.cmu.edu · (832) 757-3372</p>
+        </div>
       </div>
       <div class="resume-cta">
         <p>Want the full picture?</p>
-        <!-- Put your resume at public/files/resume.pdf -->
+        <!--
+          ★ ADD YOUR RESUME:
+          Put your resume PDF at public/files/resume.pdf
+          Then the download button below will work automatically.
+        -->
         <a href="/files/resume.pdf" class="btn" download>Download Resume</a>
       </div>
     </div>
+
   </section>
 
 
   <!-- ============================================================
     SECTION 2: MY CONTENT
-    ← Update stats weekly. Add IG posts. Edit series.
+    Followers view — fitness tracker, photo gallery, IG feed
   ============================================================ -->
   <section id="my-content">
+
     <div class="section-intro section-intro-alt">
       <div class="section-num">02</div>
       <div>
@@ -248,85 +461,133 @@
       </div>
     </div>
 
-    <!-- WEIGHT LOSS JOURNEY STATS
-         ← Update the numbers inside .stat-number spans regularly -->
-    <div class="content-block">
-      <h3 class="block-label">Weight Loss Journey 🏃</h3>
-      <p class="content-intro">
-        Documenting my journey publicly — raw, honest, and weekly. Here are my live stats.
-      </p> <!-- ← edit -->
-
-      <div class="stats-row">
-        <div class="stat-card">
-          <span class="stat-number">247</span>     <!-- ← starting weight -->
-          <span class="stat-label">Start (lbs)</span>
-        </div>
-        <div class="stat-card stat-highlight">
-          <span class="stat-number">—</span>       <!-- ← current weight, update weekly -->
-          <span class="stat-label">Current (lbs)</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">—</span>       <!-- ← total lost -->
-          <span class="stat-label">Lost (lbs)</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">—</span>       <!-- ← weeks in -->
-          <span class="stat-label">Weeks In</span>
-        </div>
-      </div>
-
-      <!--
-        PROGRESS BAR — update both the style width AND the text percentage
-        Example: lost 12 of a 50lb goal → width: 24%; text: "24%"
-      -->
-      <div class="progress-wrap">
-        <div class="progress-meta">
-          <span>Progress to goal</span>
-          <span class="progress-pct">0%</span>   <!-- ← update this -->
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" style="width: 0%"></div>  <!-- ← update width -->
-        </div>
-        <p class="progress-note">Goal: — lbs · Updated every Sunday</p> <!-- ← edit goal -->
-      </div>
-    </div>
-
-    <!-- INSTAGRAM GRID
-         TO ADD REAL POSTS:
-         Option A — your own images:
-           Replace .ig-placeholder divs with:
-           <div class="ig-card">
-             <img src="images/post1.jpg" alt="caption" />
-             <p class="ig-caption">Your caption</p>
-           </div>
-
-         Option B — Instagram embed:
-           Go to IG post → ··· → Embed → copy the <blockquote> code
-           Paste inside a <div class="ig-card ig-embed">...</div>
-           Add this script once at bottom of page (before </body>):
-           <script async src="//www.instagram.com/embed.js"></script>
-
-         ← Change YOURUSERNAME in the button href -->
+    <!-- ── WEIGHT LOSS JOURNEY TIMELINE ──────────────────────
+      Entries are added via the admin panel at /admin.html
+      No code editing needed — just fill out the form there.
+    ─────────────────────────────────────────────────────────── -->
     <div class="content-block">
       <div class="content-block-header">
-        <h3 class="block-label">Latest Posts</h3>
-        <a href="https://instagram.com/YOURUSERNAME" class="btn btn-sm" target="_blank" rel="noopener">
-          <i class="fab fa-instagram"></i> Follow on Instagram
-        </a>
+        <h3 class="block-label">Weight Loss Journey 🏃</h3>
+        <a href="/admin.html" class="btn btn-sm">+ Log Entry</a>
       </div>
-      <div class="ig-grid">
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
-        <div class="ig-card ig-placeholder"><i class="fab fa-instagram"></i><span>Add post</span></div>
+      <p class="content-intro">Documenting my journey publicly — raw, honest, no filter.</p>
+
+      <!-- Entries load here from /api/journey/public via script.js -->
+      <div class="wl-timeline" id="wl-timeline-container">
+        <div class="wl-empty" style="color:var(--faint);font-size:0.85rem;padding:1rem 0">
+          Loading…
+        </div>
       </div>
     </div>
 
-    <!-- SERIES / ONGOING PROJECTS
-         ← Copy/delete .series-card blocks as needed
-         Status options: "Ongoing" / "Completed" / "Coming Soon" -->
+    <!-- ── SPOTIFY ─────────────────────────────────────────────
+      Shows what you're currently listening to + your top
+      artists and tracks. Updates automatically.
+
+      ★ SETUP: see server.js → SPOTIFY section for instructions.
+         Short version: visit /api/spotify/auth once to connect.
+    ─────────────────────────────────────────────────────────── -->
+    <div class="content-block">
+      <div class="content-block-header">
+        <h3 class="block-label">Currently Listening</h3>
+        <a href="https://open.spotify.com" class="btn btn-sm" target="_blank" rel="noopener">
+          <i class="fab fa-spotify"></i> Open Spotify
+        </a>
+      </div>
+
+      <!-- Now playing — auto-refreshes every 30s -->
+      <div id="spotify-now-playing" class="spotify-now-playing">
+        <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
+      </div>
+
+      <!-- Top artists + tracks with time range toggle -->
+      <div class="spotify-top-wrap">
+        <div class="spotify-range-tabs">
+          <button class="spotify-range-btn active" data-range="short_term">Last 4 Weeks</button>
+          <button class="spotify-range-btn" data-range="medium_term">6 Months</button>
+          <button class="spotify-range-btn" data-range="long_term">All Time</button>
+        </div>
+        <div id="spotify-top-container">
+          <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHOTO GALLERY ───────────────────────────────────────
+      ★ HOW TO ADD YOUR PHOTOS:
+      1. Put image files in public/images/gallery/ folder
+         (create that folder if it doesn't exist)
+      2. Replace each .gallery-placeholder div with:
+         <img src="images/gallery/photo1.jpg" alt="description" />
+      3. Add or remove .gallery-item divs to change the count
+
+      Clicking a photo opens it fullscreen (lightbox handled in script.js)
+    ─────────────────────────────────────────────────────────── -->
+    <div class="content-block">
+      <h3 class="block-label">Photos</h3>
+      <div class="photo-grid" id="photo-gallery">
+
+        <!-- ★ Replace each gallery-placeholder with your actual image -->
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+          <!-- Replace above with: <img src="images/gallery/photo1.jpg" alt="caption" /> -->
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
+        </div>
+        <!-- ← Add more gallery-item divs as needed -->
+
+      </div>
+    </div>
+
+    <!-- ── INSTAGRAM FEED (auto-synced) ───────────────────────
+      This section auto-loads your latest 6 IG posts via the
+      Instagram Basic Display API. The backend (server.js) handles
+      the API call — it reads your token from .env.
+
+      ★ SETUP STEPS (one-time):
+      1. Go to developers.facebook.com
+      2. Create a new app → choose "Consumer" type
+      3. Add "Instagram Basic Display" product
+      4. Add your IG account as a test user
+      5. Generate a User Token (valid 60 days; see server.js for how to refresh)
+      6. In your .env file add:  INSTAGRAM_TOKEN=your_token_here
+      7. Restart the server — posts will load automatically
+
+      Until you set this up, a fallback message is shown.
+    ─────────────────────────────────────────────────────────── -->
+    <div class="content-block">
+      <div class="content-block-header">
+        <h3 class="block-label">Instagram</h3>
+        <a href="https://instagram.com/YOURUSERNAME" class="btn btn-sm" target="_blank" rel="noopener" id="ig-profile-link">
+          <!-- ← Change YOURUSERNAME to your actual IG handle -->
+          <i class="fab fa-instagram"></i> Follow Me
+        </a>
+      </div>
+
+      <!-- Posts load here via script.js → fetch('/api/instagram') -->
+      <div class="ig-grid" id="ig-feed">
+        <!-- Loading state shown while JS fetches posts -->
+        <div class="ig-loading" id="ig-loading">
+          <i class="fab fa-instagram"></i>
+          <span>Loading posts…</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CURRENT SERIES ──────────────────────────────────── -->
     <div class="content-block">
       <h3 class="block-label">Current Series</h3>
       <div class="series-list">
@@ -344,11 +605,12 @@
           <span class="series-status coming-soon">Coming Soon</span>
           <h4 class="series-name">Your Next Series</h4>
           <p class="series-desc">
-            Something you're planning. Add it here to build anticipation with your audience.
+            Something you're planning. Add it here to build anticipation.
           </p>
         </div>
       </div>
     </div>
+
   </section>
 
 
@@ -366,23 +628,27 @@
 
     <div class="contact-grid">
       <div class="contact-left">
-        <!-- ← Update all href values to your real profiles/email -->
         <div class="social-links">
           <a href="https://github.com/CollinShen" class="social-link" target="_blank" rel="noopener">
             <i class="fab fa-github"></i>
             <div><span class="social-platform">GitHub</span><span class="social-handle">@CollinShen</span></div>
           </a>
-          <a href="https://linkedin.com/in/YOURUSERNAME" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.linkedin.com/in/collinshen/" class="social-link" target="_blank" rel="noopener">
             <i class="fab fa-linkedin"></i>
             <div><span class="social-platform">LinkedIn</span><span class="social-handle">Collin Shen</span></div>
           </a>
           <a href="https://instagram.com/YOURUSERNAME" class="social-link" target="_blank" rel="noopener">
+            <!-- ← Change YOURUSERNAME -->
             <i class="fab fa-instagram"></i>
             <div><span class="social-platform">Instagram</span><span class="social-handle">@YOURUSERNAME</span></div>
           </a>
-          <a href="mailto:you@email.com" class="social-link"> <!-- ← your email -->
+          <a href="mailto:cxshen@andrew.cmu.edu" class="social-link">
             <i class="fa fa-envelope"></i>
-            <div><span class="social-platform">Email</span><span class="social-handle">you@email.com</span></div>
+            <div><span class="social-platform">Email</span><span class="social-handle">cxshen@andrew.cmu.edu</span></div>
+          </a>
+          <a href="tel:+18327573372" class="social-link">
+            <i class="fa fa-phone"></i>
+            <div><span class="social-platform">Phone</span><span class="social-handle">(832) 757-3372</span></div>
           </a>
         </div>
       </div>
@@ -411,7 +677,7 @@
   </section>
 
 
-  <!-- FOOTER ← change name/year -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-botanical" aria-hidden="true">
       <svg viewBox="0 0 300 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -423,7 +689,7 @@
         <circle cx="150" cy="4" r="1.5" fill="currentColor" opacity="0.6"/>
       </svg>
     </div>
-    <p>© 2025 Collin Shen</p>
+    <p>© 2025 Collin Shen · Machine Learning Engineer</p>
   </footer>
 
   <script src="script.js"></script>
