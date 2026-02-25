@@ -234,6 +234,7 @@
     aspect-ratio: 4/5;
     object-fit: cover;
     border: 1px solid var(--divider);
+    transition: opacity 0.6s ease;
     /* Subtle shadow */
     box-shadow: 12px 12px 0 var(--surface-2);
   }
@@ -334,6 +335,7 @@
     margin: calc(-1 * var(--sy)) calc(-1 * var(--sx)) 4rem;
     padding: 4rem var(--sx) 3rem;
     border-bottom: 1px solid var(--divider);
+    align-items: center;
   }
   
   .section-num {
@@ -381,7 +383,182 @@
   
   
   /* ================================================================
-     7. INTERACTIVE TIMELINE
+     7. DUAL TIMELINE
+  ================================================================ */
+
+  /* column labels above timeline */
+  .dt-col-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .dt-col-label-edu,
+  .dt-col-label-work {
+    width: calc(50% - 2rem);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .dt-col-label-edu { text-align: right; color: var(--sage); }
+  .dt-col-label-work { text-align: left;  color: var(--terra); }
+
+  /* outer container */
+  .dual-timeline {
+    position: relative;
+    height: 870px;
+    margin-bottom: 2rem;
+  }
+
+  /* center axis line */
+  .dual-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--divider);
+    transform: translateX(-50%);
+  }
+
+  /* year labels */
+  .dt-year {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    color: var(--faint);
+    font-family: var(--font-head);
+    background: var(--bg);
+    padding: 1px 6px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* entry bars */
+  .dt-entry {
+    position: absolute;
+    width: calc(50% - 2.25rem);
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    z-index: 1;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .dt-edu {
+    right: calc(50% + 1.25rem);
+    border-top: 3px solid var(--sage);
+  }
+
+  .dt-work {
+    left: calc(50% + 1.25rem);
+    border-top: 3px solid var(--terra);
+  }
+
+  .dt-entry:hover {
+    border-color: var(--text);
+    z-index: 3;
+  }
+
+  .dt-entry.open { z-index: 5; }
+
+  /* header button */
+  .dt-header {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.7rem 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .dt-header .tl-logo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .dt-hinfo {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dt-hinfo .tl-title {
+    font-size: 0.95rem;
+    margin: 0.1rem 0 0.1rem;
+  }
+
+  .dt-hinfo .tl-subtitle {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dt-date {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--faint);
+    letter-spacing: 0.05em;
+    margin-top: 0.2rem;
+  }
+
+  .dt-header .tl-chevron {
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+    color: var(--faint);
+    transition: transform 0.3s;
+  }
+
+  .dt-entry.open .tl-chevron { transform: rotate(180deg); }
+
+  /* expandable details */
+  .dt-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .dt-entry.open .dt-details {
+    max-height: 600px;
+    padding: 0 0.75rem 0.85rem;
+  }
+
+  .dt-details ul {
+    list-style: disc;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dt-details li { font-size: 0.83rem; }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .dual-timeline { height: auto; min-height: 600px; }
+    .dt-entry { width: calc(50% - 0.75rem); }
+    .dt-edu { right: calc(50% + 0.5rem); }
+    .dt-work { left: calc(50% + 0.5rem); }
+    .dt-hinfo .tl-subtitle { font-size: 0.68rem; }
+    .dt-header .tl-logo { width: 28px; height: 28px; }
+  }
+
+  /* ================================================================
+     7b. OLD TIMELINE (kept for reference, unused)
   ================================================================ */
   .timeline-hint {
     font-size: 0.78rem;
@@ -658,78 +835,77 @@
   
   
   /* ================================================================
-     10. LEADERSHIP
+     10. ABOUT ME SECTION
   ================================================================ */
-  .leadership-list { display: flex; flex-direction: column; gap: 0; }
-  
-  .leadership-item {
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--divider);
-  }
-  
-  .leadership-item:last-child { border-bottom: none; }
-  
-  .leadership-item h4 {
-    font-family: var(--font-head);
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 0.3rem;
-  }
-  
-  .leadership-item p { font-size: 0.88rem; color: var(--muted); }
-  
-  
-  /* ================================================================
-     11. CAREER BOTTOM (resume + contact info)
-  ================================================================ */
-  .career-bottom {
-    display: flex;
+  #about-me { background: var(--bg); }
+
+  /* section-intro variant that supports a right-side photo */
+  .section-intro-about {
     align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--divider);
-    flex-wrap: wrap;
   }
-  
-  .education-card { display: flex; align-items: center; gap: 1.25rem; }
-  
-  /* Mini profile photo beside resume block */
-  .mini-photo {
-    width: 60px; height: 60px;
-    border-radius: 50%;
+
+  .section-intro-flex {
+    align-items: center;
+  }
+
+  /* photo slot next to a section header */
+  .section-photo-wrap {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .section-rotating-photo {
+    width: 260px;
+    aspect-ratio: 4/5;
     object-fit: cover;
-    border: 2px solid var(--divider);
-    flex-shrink: 0;
+    border: 1px solid var(--divider);
+    transition: opacity 0.6s ease;
+    box-shadow: 8px 8px 0 var(--surface-2);
+    display: block;
   }
-  
-  .mini-photo-placeholder {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 2px solid var(--divider);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--faint);
-    font-size: 1.3rem;
-    flex-shrink: 0;
+
+  /* smaller version for career / content headers */
+  .section-photo-sm {
+    width: 160px;
   }
-  
-  .education-card h4 {
-    font-family: var(--font-head);
-    font-size: 1.3rem;
+
+  /* about me prose blocks */
+  .about-block {
+    margin-bottom: 4rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+    max-width: 70ch;
+  }
+
+  /* interests grid */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 1.25rem;
+  }
+
+  .interest-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
     font-weight: 400;
-    margin-bottom: 0.2rem;
   }
-  
-  .education-card p  { font-size: 0.85rem; color: var(--muted); }
-  .edu-note { font-size: 0.78rem !important; color: var(--faint) !important; margin-top: 0.15rem; }
-  
-  .resume-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
-  .resume-cta p { font-family: var(--font-head); font-size: 1rem; font-style: italic; color: var(--muted); }
-  
-  
+
+  .interest-val {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+
   /* ================================================================
      12. CONTENT SECTION
   ================================================================ */
@@ -1234,15 +1410,21 @@
     .section-num { font-size: 3.5rem; }
     .section-intro-alt { margin: -4rem -1.5rem 3rem; padding: 3rem 1.5rem 2rem; }
   
+    /* Section rotating photos */
+    .section-photo-wrap { margin-left: 0; }
+    .section-rotating-photo { width: 100%; max-width: 260px; }
+    .section-photo-sm { max-width: 140px; }
+
+    /* About Me */
+    .interests-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
     /* Grids */
     .skills-grid, .projects-grid, .series-list, .photo-grid, .ig-grid { grid-template-columns: 1fr 1fr; }
     .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .career-bottom { flex-direction: column; align-items: flex-start; }
-    .resume-cta { align-items: flex-start; }
-  
+
     /* Stats */
     .stats-row { grid-template-columns: 1fr 1fr; }
-  
+
     /* Timeline */
     .tl-header { flex-direction: column; gap: 0.5rem; }
     .tl-header-right { align-items: flex-start; }
@@ -1252,6 +1434,8 @@
     .photo-grid, .ig-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
     .series-list { grid-template-columns: 1fr; }
+    .interests-grid { grid-template-columns: 1fr; }
+    .section-photo-sm { display: none; }
   }
   
   
@@ -1435,22 +1619,26 @@
     background: var(--bg);
   }
   
-  /* Two-column layout */
-  .spotify-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5px;
-    background: var(--divider);
+  /* Two-column list — independent columns, clean and airy */
+  .spotify-top-wrap-inner {
+    display: flex;
   }
-  
-  .spotify-col { background: var(--bg); padding: 1.5rem; }
-  
-  .spotify-col-label {
+
+  .spotify-col {
+    flex: 1;
+    padding: 0 1.5rem 1rem;
+  }
+
+  .spotify-col + .spotify-col {
+    border-left: 1px solid var(--divider);
+  }
+
+  .spotify-col-header {
+    padding: 1rem 0 0.75rem;
     font-size: 0.68rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 1rem;
     font-weight: 400;
   }
   
@@ -1459,14 +1647,11 @@
     display: flex;
     align-items: center;
     gap: 0.85rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--divider);
+    padding: 0.45rem 0;
     text-decoration: none;
     color: var(--text);
-    transition: background 0.15s;
+    transition: color 0.15s;
   }
-  
-  .spotify-artist-item:last-child { border-bottom: none; }
   .spotify-artist-item:hover { color: #1DB954; }
   
   .spotify-rank {
@@ -1501,14 +1686,11 @@
     display: flex;
     align-items: center;
     gap: 0.85rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--divider);
+    padding: 0.45rem 0;
     text-decoration: none;
     color: var(--text);
     transition: color 0.15s;
   }
-  
-  .spotify-track-item:last-child { border-bottom: none; }
   .spotify-track-item:hover { color: #1DB954; }
   
   .spotify-album-art {

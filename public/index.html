@@ -21,17 +21,16 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#coding-career" class="nav-link">My Coding Career</a></li>
-      <li><a href="#my-content"    class="nav-link">My Content</a></li>
-      <li><a href="#contact"       class="nav-link">My Contact</a></li>
+      <li><a href="#about-me"    class="nav-link">About Me</a></li>
+      <li><a href="#my-career"   class="nav-link">My Career</a></li>
+      <li><a href="#my-content"  class="nav-link">My Content</a></li>
+      <li><a href="#contact"     class="nav-link">Contact</a></li>
     </ul>
   </nav>
 
 
   <!-- ============================================================
-    HERO — split layout: text left, photo right
-    ← To add your photo: put it at public/images/profile.jpg
-       Then uncomment the <img> tag below and delete the placeholder div
+    HERO
   ============================================================ -->
   <section id="hero">
     <div class="botanical-left" aria-hidden="true">
@@ -79,25 +78,14 @@
           Predictive modeling, NLP, and real-time ML.
         </p>
         <div class="hero-ctas">
-          <a href="#coding-career" class="btn">View My Work</a>
-          <a href="#my-content"    class="btn btn-outline">My Content</a>
+          <a href="#about-me"  class="btn">About Me</a>
+          <a href="#my-career" class="btn btn-outline">My Career</a>
         </div>
       </div>
 
       <!-- RIGHT: Profile photo -->
       <div class="hero-photo-wrap">
-        <!--
-          ★ ADD YOUR PHOTO:
-          1. Put your photo at:  public/images/profile.jpg
-          2. Delete the .photo-placeholder div below
-          3. Uncomment the <img> tag
-
-          <img src="images/profile.jpg" alt="Collin Shen" class="hero-photo" />
-        -->
-        <div class="photo-placeholder hero-photo">
-          <i class="fa fa-user"></i>
-          <span>Add public/images/profile.jpg</span>
-        </div>
+        <img src="images/IMG_6727.JPG" alt="Collin Shen" class="hero-photo" id="hero-photo" />
       </div>
     </div>
 
@@ -109,183 +97,253 @@
 
 
   <!-- ============================================================
-    SECTION 1: MY CODING CAREER
-    Recruiter view — timeline, skills, projects, resume
+    SECTION 01: ABOUT ME
   ============================================================ -->
-  <section id="coding-career">
+  <section id="about-me">
+
+    <div class="section-intro section-intro-about">
+      <div class="section-num">01</div>
+      <div class="section-intro-text">
+        <h2 class="section-title">About<br><em>Me</em></h2>
+        <p class="section-desc">
+          CMU grad student, ML engineer, content creator — and whatever else I feel like being.
+        </p>
+      </div>
+      <div class="section-photo-wrap">
+        <img src="images/IMG_6727.JPG" alt="Collin Shen" class="section-rotating-photo" id="about-photo" />
+      </div>
+    </div>
+
+    <!-- ── ABOUT ME TEXT ──────────────────────────────────────── -->
+    <div class="about-block">
+      <p class="about-text">
+        Hey, I'm Collin — a Machine Learning grad student at Carnegie Mellon University originally from Houston, TX.
+        I finished my B.S. in Computer Science at Stevens Institute of Technology in just 3 years, and now I'm pursuing
+        my M.S. at CMU with a focus on ML and AI systems. During the day I'm building models and pipelines;
+        outside of that I'm usually at the gym, watching something, or creating content online.
+      </p>
+    </div>
+
+    <!-- ── MY INTERESTS ───────────────────────────────────────── -->
+    <div class="about-block">
+      <h3 class="block-label">My Interests</h3>
+      <div class="interests-grid">
+        <div class="interest-group">
+          <p class="interest-label">Favorite TV Shows</p>
+          <p class="interest-val">Coming soon...</p>
+        </div>
+        <div class="interest-group">
+          <p class="interest-label">Music &amp; Artists</p>
+          <p class="interest-val">Coming soon...</p>
+        </div>
+        <div class="interest-group">
+          <p class="interest-label">Hobbies</p>
+          <p class="interest-val">Coming soon...</p>
+        </div>
+        <div class="interest-group">
+          <p class="interest-label">Idols</p>
+          <p class="interest-val">Coming soon...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PHOTO GALLERY ──────────────────────────────────────── -->
+    <div class="about-block">
+      <h3 class="block-label">Photos</h3>
+      <div class="photo-grid" id="photo-gallery">
+
+        <div class="gallery-item"><img src="images/IMG_0764.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_1983.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_2434.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_2455.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_3359.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_6727.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_7740.PNG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_8237.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_8776.JPG" alt="Photo" /></div>
+        <div class="gallery-item"><img src="images/IMG_9746.JPG" alt="Photo" /></div>
+
+      </div>
+    </div>
+
+    <!-- ── SPOTIFY ─────────────────────────────────────────────── -->
+    <div class="about-block">
+      <div class="content-block-header">
+        <h3 class="block-label">Currently Listening</h3>
+        <a href="https://open.spotify.com" class="btn btn-sm" target="_blank" rel="noopener">
+          <i class="fab fa-spotify"></i> Open Spotify
+        </a>
+      </div>
+
+      <div id="spotify-now-playing" class="spotify-now-playing">
+        <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
+      </div>
+
+      <div class="spotify-top-wrap">
+        <div class="spotify-range-tabs">
+          <button class="spotify-range-btn active" data-range="short_term">Last 4 Weeks</button>
+          <button class="spotify-range-btn" data-range="medium_term">6 Months</button>
+          <button class="spotify-range-btn" data-range="long_term">All Time</button>
+        </div>
+        <div id="spotify-top-container">
+          <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 02: MY CAREER
+  ============================================================ -->
+  <section id="my-career">
 
     <div class="section-intro">
-      <div class="section-num">01</div>
-      <div>
+      <div class="section-num">02</div>
+      <div class="section-intro-text">
         <h2 class="section-title">My Coding<br><em>Career</em></h2>
         <p class="section-desc">
           Machine Learning Engineer focused on predictive modeling, NLP, and scalable systems.
           Currently pursuing my M.S. at Carnegie Mellon University.
         </p>
       </div>
+      <div class="section-photo-wrap">
+        <img src="images/IMG_6727.JPG" alt="Collin Shen" class="section-rotating-photo section-photo-sm" id="career-photo" />
+      </div>
     </div>
 
-    <!-- ── INTERACTIVE TIMELINE ──────────────────────────────────
-      Click any timeline item to expand/collapse its details.
-      To add a new entry: copy a <div class="tl-item"> block.
-      Order is newest first (top).
-    ─────────────────────────────────────────────────────────── -->
+    <!-- ── INTERACTIVE TIMELINE ────────────────────────────────── -->
     <div class="career-block">
       <h3 class="block-label">Timeline</h3>
-      <p class="timeline-hint">Click any item to expand details</p>
 
-      <div class="timeline">
+      <div class="dt-col-labels">
+        <span class="dt-col-label-edu">← Education</span>
+        <span class="dt-col-label-work">Work →</span>
+      </div>
 
-        <!-- CMU -->
-        <div class="tl-item" data-open="false">
-          <div class="tl-marker">
-            <div class="tl-dot edu"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <button class="tl-header" aria-expanded="false">
-              <div class="tl-header-left">
-                <!--
-                  ★ CMU LOGO: put your logo at public/images/logos/cmu.png
-                  Then replace the .tl-logo-placeholder div with:
-                  <img src="images/logos/cmu.png" alt="CMU" class="tl-logo" />
-                -->
-                <div class="tl-logo-placeholder"><i class="fa fa-graduation-cap"></i></div>
-                <div>
-                  <span class="tl-type edu-badge">Education</span>
-                  <h4 class="tl-title">Carnegie Mellon University</h4>
-                  <p class="tl-subtitle">M.S. Computer Engineering in Machine Learning · Pittsburgh, PA</p>
-                </div>
-              </div>
-              <div class="tl-header-right">
-                <span class="tl-date">Aug 2025 – Dec 2026</span>
-                <i class="fa fa-chevron-down tl-chevron"></i>
-              </div>
-            </button>
-            <div class="tl-details">
-              <p>Master of Computer Engineering with a focus in Machine Learning.</p>
-              <div class="tl-tags">
-                <span>Machine Learning</span><span>Deep Learning</span><span>Generative AI</span>
-                <span>LLMs</span><span>Embedded Systems</span><span>Cloud</span>
-              </div>
+      <div class="dual-timeline">
+
+        <!-- Year axis markers (newest at top) -->
+        <span class="dt-year" style="top:0px">2027</span>
+        <span class="dt-year" style="top:160px">2026</span>
+        <span class="dt-year" style="top:320px">2025</span>
+        <span class="dt-year" style="top:480px">2024</span>
+        <span class="dt-year" style="top:640px">2023</span>
+        <span class="dt-year" style="top:800px">2022</span>
+
+        <!-- ── EDUCATION (left) ── -->
+
+        <!-- Stevens: Aug 2022 → May 2025 | top:267px height:440px -->
+        <div class="dt-entry dt-edu" style="top:267px; min-height:440px;">
+          <button class="dt-header" aria-expanded="false">
+            <img src="images/logos/stevens.png" alt="Stevens" class="tl-logo" />
+            <div class="dt-hinfo">
+              <span class="tl-type edu-badge">Education</span>
+              <h4 class="tl-title">Stevens Institute of Technology</h4>
+              <p class="tl-subtitle">B.S. Computer Science · Hoboken, NJ</p>
+              <span class="dt-date">Aug 2022 – May 2025</span>
+            </div>
+            <i class="fa fa-chevron-down tl-chevron"></i>
+          </button>
+          <div class="dt-details">
+            <p>Completed degree in 3 years (accelerated). Dean's List ×6.</p>
+            <p style="margin-top:0.5rem;">Minor in Data Science. Relevant coursework: Machine/Deep Learning, Generative AI, LLMs, Embedded Systems, Operating Systems, Cloud Computing, Concurrent Programming, Optimization.</p>
+            <div class="tl-tags">
+              <span>Dean's List ×6</span><span>3-Year Accelerated</span><span>Data Science Minor</span>
             </div>
           </div>
         </div>
 
-        <!-- Wabtec ML Intern -->
-        <div class="tl-item" data-open="false">
-          <div class="tl-marker">
-            <div class="tl-dot work"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <button class="tl-header" aria-expanded="false">
-              <div class="tl-header-left">
-                <!--
-                  ★ WABTEC LOGO: put your logo at public/images/logos/wabtec.png
-                  Then replace the .tl-logo-placeholder div with:
-                  <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
-                -->
-                <div class="tl-logo-placeholder"><i class="fa fa-building"></i></div>
-                <div>
-                  <span class="tl-type work-badge">Work</span>
-                  <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
-                  <p class="tl-subtitle">Machine Learning Engineer Intern · Erie, PA</p>
-                </div>
-              </div>
-              <div class="tl-header-right">
-                <span class="tl-date">May – Aug 2025</span>
-                <i class="fa fa-chevron-down tl-chevron"></i>
-              </div>
-            </button>
-            <div class="tl-details">
-              <ul>
-                <li>Trained XGBoost gradient-boosted model to predict high-dimensional locomotive system outputs, enabling scalable offline inference and design exploration</li>
-                <li>Built feature engineering and cross-validation pipeline using Python, scikit-learn, and Pandas to ensure model robustness across configurations</li>
-                <li>Automated prediction of simulation outputs across multiple configurations, reducing engineering time while preserving model accuracy</li>
-              </ul>
-              <div class="tl-tags">
-                <span>XGBoost</span><span>Python</span><span>scikit-learn</span><span>Pandas</span><span>Predictive Modeling</span>
-              </div>
+        <!-- CMU: Aug 2025 → Dec 2026 | top:0px height:227px -->
+        <div class="dt-entry dt-edu" style="top:0px; min-height:227px;">
+          <button class="dt-header" aria-expanded="false">
+            <img src="images/logos/cmu.png" alt="CMU" class="tl-logo" />
+            <div class="dt-hinfo">
+              <span class="tl-type edu-badge">Education</span>
+              <h4 class="tl-title">Carnegie Mellon University</h4>
+              <p class="tl-subtitle">M.S. Computer Engineering in ML · Pittsburgh, PA</p>
+              <span class="dt-date">Aug 2025 – Dec 2026</span>
+            </div>
+            <i class="fa fa-chevron-down tl-chevron"></i>
+          </button>
+          <div class="dt-details">
+            <p>Master of Computer Engineering with a focus in Machine Learning.</p>
+            <div class="tl-tags">
+              <span>Machine Learning</span><span>Deep Learning</span><span>Generative AI</span>
+              <span>LLMs</span><span>Embedded Systems</span><span>Cloud</span>
             </div>
           </div>
         </div>
 
-        <!-- Stevens -->
-        <div class="tl-item" data-open="false">
-          <div class="tl-marker">
-            <div class="tl-dot edu"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <button class="tl-header" aria-expanded="false">
-              <div class="tl-header-left">
-                <!--
-                  ★ STEVENS LOGO: put your logo at public/images/logos/stevens.png
-                  Then replace the .tl-logo-placeholder div with:
-                  <img src="images/logos/stevens.png" alt="Stevens" class="tl-logo" />
-                -->
-                <div class="tl-logo-placeholder"><i class="fa fa-graduation-cap"></i></div>
-                <div>
-                  <span class="tl-type edu-badge">Education</span>
-                  <h4 class="tl-title">Stevens Institute of Technology</h4>
-                  <p class="tl-subtitle">B.S. Computer Science, Minor in Data Science · Hoboken, NJ</p>
-                </div>
-              </div>
-              <div class="tl-header-right">
-                <span class="tl-date">Aug 2022 – May 2025</span>
-                <i class="fa fa-chevron-down tl-chevron"></i>
-              </div>
-            </button>
-            <div class="tl-details">
-              <p>Completed degree in 3 years (accelerated). Dean's List ×6.</p>
-              <p style="margin-top:0.5rem;">Minor in Data Science. Relevant coursework: Machine/Deep Learning, Generative AI, LLMs, Embedded Systems, Operating Systems, Cloud Computing, Concurrent Programming, Optimization.</p>
-              <div class="tl-tags">
-                <span>Dean's List ×6</span><span>3-Year Accelerated</span><span>Data Science Minor</span>
-              </div>
+        <!-- ── WORK (right) ── -->
+
+        <!-- Wabtec SWE: May 2024 → Aug 2024 | top:387px -->
+        <div class="dt-entry dt-work" style="top:387px;">
+          <button class="dt-header" aria-expanded="false">
+            <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
+            <div class="dt-hinfo">
+              <span class="tl-type work-badge">Work</span>
+              <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
+              <p class="tl-subtitle">Software Engineering Intern · Erie, PA</p>
+              <span class="dt-date">May – Aug 2024</span>
+            </div>
+            <i class="fa fa-chevron-down tl-chevron"></i>
+          </button>
+          <div class="dt-details">
+            <ul>
+              <li>Developed web-based ticket management system with tree visualization showing organizational hierarchy and real-time employee workload</li>
+              <li>Developed random forest model trained on historical ticket data to predict resolution time based on severity, type, and employee workload</li>
+              <li>Integrated internal ticket database with Django/PostgreSQL backend, enabling predictive assignment and tracking of software defect resolution</li>
+            </ul>
+            <div class="tl-tags">
+              <span>Django</span><span>PostgreSQL</span><span>Random Forest</span><span>Python</span><span>Data Visualization</span>
             </div>
           </div>
         </div>
 
-        <!-- Wabtec SWE Intern -->
-        <div class="tl-item" data-open="false">
-          <div class="tl-marker">
-            <div class="tl-dot work"></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <button class="tl-header" aria-expanded="false">
-              <div class="tl-header-left">
-                <!--
-                  ★ WABTEC LOGO (same as above — reuse the same file):
-                  <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
-                -->
-                <div class="tl-logo-placeholder"><i class="fa fa-building"></i></div>
-                <div>
-                  <span class="tl-type work-badge">Work</span>
-                  <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
-                  <p class="tl-subtitle">Software Engineering Intern · Erie, PA</p>
-                </div>
-              </div>
-              <div class="tl-header-right">
-                <span class="tl-date">May – Aug 2024</span>
-                <i class="fa fa-chevron-down tl-chevron"></i>
-              </div>
-            </button>
-            <div class="tl-details">
-              <ul>
-                <li>Developed web-based ticket management system with tree visualization showing organizational hierarchy and real-time employee workload, replacing untracked email-based task assignment</li>
-                <li>Developed random forest model trained on historical ticket data to predict resolution time based on severity, type, and employee workload — providing assignment recommendations to managers</li>
-                <li>Integrated internal ticket database with Django/PostgreSQL backend, enabling predictive assignment and tracking of software defect resolution</li>
-              </ul>
-              <div class="tl-tags">
-                <span>Django</span><span>PostgreSQL</span><span>Random Forest</span><span>Python</span><span>Data Visualization</span>
-              </div>
+        <!-- Wabtec ML: May 2025 → Aug 2025 | top:227px -->
+        <div class="dt-entry dt-work" style="top:227px;">
+          <button class="dt-header" aria-expanded="false">
+            <img src="images/logos/wabtec.png" alt="Wabtec" class="tl-logo" />
+            <div class="dt-hinfo">
+              <span class="tl-type work-badge">Work</span>
+              <h4 class="tl-title">Wabtec Inc. (S&P 500)</h4>
+              <p class="tl-subtitle">Machine Learning Engineer Intern · Erie, PA</p>
+              <span class="dt-date">May – Aug 2025</span>
+            </div>
+            <i class="fa fa-chevron-down tl-chevron"></i>
+          </button>
+          <div class="dt-details">
+            <ul>
+              <li>Trained XGBoost gradient-boosted model to predict high-dimensional locomotive system outputs, enabling scalable offline inference and design exploration</li>
+              <li>Built feature engineering and cross-validation pipeline using Python, scikit-learn, and Pandas to ensure model robustness across configurations</li>
+              <li>Automated prediction of simulation outputs across multiple configurations, reducing engineering time while preserving model accuracy</li>
+            </ul>
+            <div class="tl-tags">
+              <span>XGBoost</span><span>Python</span><span>scikit-learn</span><span>Pandas</span><span>Predictive Modeling</span>
             </div>
           </div>
         </div>
 
-      </div><!-- /timeline -->
+        <!-- Honeywell: May 2026 → Aug 2026 | top:67px -->
+        <div class="dt-entry dt-work" style="top:67px;">
+          <button class="dt-header" aria-expanded="false">
+            <img src="images/logos/honeywell.png" alt="Honeywell" class="tl-logo" />
+            <div class="dt-hinfo">
+              <span class="tl-type work-badge">Work</span>
+              <h4 class="tl-title">Honeywell</h4>
+              <p class="tl-subtitle">AI/ML Software Dev Intern</p>
+              <span class="dt-date">May – Aug 2026</span>
+            </div>
+            <i class="fa fa-chevron-down tl-chevron"></i>
+          </button>
+          <div class="dt-details">
+            <p>Upcoming ML Dev.</p>
+          </div>
+        </div>
+
+      </div><!-- /dual-timeline -->
     </div>
 
     <!-- ── SKILLS ──────────────────────────────────────────────── -->
@@ -396,83 +454,32 @@
       </div>
     </div>
 
-    <!-- ── LEADERSHIP ─────────────────────────────────────────── -->
-    <div class="career-block">
-      <h3 class="block-label">Leadership</h3>
-      <div class="leadership-list">
-        <div class="leadership-item">
-          <h4>Student Government VP of Finance</h4>
-          <p>Stevens Institute of Technology · Oversaw budgeting and financial governance for student organizations, advising allocation decisions across a $2M university-managed budget.</p>
-        </div>
-        <div class="leadership-item">
-          <h4>Badminton Club President</h4>
-          <p>Stevens Institute of Technology · Led club of 40+ members, organized intercollegiate tournaments with regional universities.</p>
-        </div>
-        <div class="leadership-item">
-          <h4>Battery Captain & Center Snare</h4>
-          <p>Stevens Institute of Technology · Coordinated sectional rehearsals and performed at regional competitions.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── RESUME DOWNLOAD ────────────────────────────────────── -->
-    <div class="career-bottom">
-      <div class="education-card">
-        <!--
-          ★ ADD YOUR HEADSHOT PHOTO HERE (small, beside the resume block):
-          Put your photo at public/images/profile-small.jpg
-          Then replace the .mini-photo-placeholder div with:
-          <img src="images/profile-small.jpg" alt="Collin Shen" class="mini-photo" />
-        -->
-        <div class="mini-photo-placeholder">
-          <i class="fa fa-user"></i>
-        </div>
-        <div>
-          <h4>Collin Shen</h4>
-          <p>Machine Learning Engineer · US Citizen</p>
-          <p class="edu-note">cxshen@andrew.cmu.edu · (832) 757-3372</p>
-        </div>
-      </div>
-      <div class="resume-cta">
-        <p>Want the full picture?</p>
-        <!--
-          ★ ADD YOUR RESUME:
-          Put your resume PDF at public/files/resume.pdf
-          Then the download button below will work automatically.
-        -->
-        <a href="/files/resume.pdf" class="btn" download>Download Resume</a>
-      </div>
-    </div>
-
   </section>
 
 
   <!-- ============================================================
-    SECTION 2: MY CONTENT
-    Followers view — fitness tracker, photo gallery, IG feed
+    SECTION 03: MY CONTENT
   ============================================================ -->
   <section id="my-content">
 
-    <div class="section-intro section-intro-alt">
-      <div class="section-num">02</div>
-      <div>
+    <div class="section-intro section-intro-alt section-intro-flex">
+      <div class="section-num">03</div>
+      <div class="section-intro-text">
         <h2 class="section-title">My<br><em>Content</em></h2>
         <p class="section-desc">Behind the code there's a whole other life. Follow along.</p>
       </div>
+      <div class="section-photo-wrap">
+        <img src="images/IMG_6727.JPG" alt="Collin Shen" class="section-rotating-photo section-photo-sm" id="content-photo" />
+      </div>
     </div>
 
-    <!-- ── WEIGHT LOSS JOURNEY TIMELINE ──────────────────────
-      Entries are added via the admin panel at /admin.html
-      No code editing needed — just fill out the form there.
-    ─────────────────────────────────────────────────────────── -->
+    <!-- ── WEIGHT LOSS JOURNEY TIMELINE ─────────────────────── -->
     <div class="content-block">
       <div class="content-block-header">
         <h3 class="block-label">Weight Loss Journey 🏃</h3>
-        <a href="/admin.html" class="btn btn-sm">+ Log Entry</a>
       </div>
       <p class="content-intro">Documenting my journey publicly — raw, honest, no filter.</p>
 
-      <!-- Entries load here from /api/journey/public via script.js -->
       <div class="wl-timeline" id="wl-timeline-container">
         <div class="wl-empty" style="color:var(--faint);font-size:0.85rem;padding:1rem 0">
           Loading…
@@ -480,106 +487,16 @@
       </div>
     </div>
 
-    <!-- ── SPOTIFY ─────────────────────────────────────────────
-      Shows what you're currently listening to + your top
-      artists and tracks. Updates automatically.
-
-      ★ SETUP: see server.js → SPOTIFY section for instructions.
-         Short version: visit /api/spotify/auth once to connect.
-    ─────────────────────────────────────────────────────────── -->
-    <div class="content-block">
-      <div class="content-block-header">
-        <h3 class="block-label">Currently Listening</h3>
-        <a href="https://open.spotify.com" class="btn btn-sm" target="_blank" rel="noopener">
-          <i class="fab fa-spotify"></i> Open Spotify
-        </a>
-      </div>
-
-      <!-- Now playing — auto-refreshes every 30s -->
-      <div id="spotify-now-playing" class="spotify-now-playing">
-        <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
-      </div>
-
-      <!-- Top artists + tracks with time range toggle -->
-      <div class="spotify-top-wrap">
-        <div class="spotify-range-tabs">
-          <button class="spotify-range-btn active" data-range="short_term">Last 4 Weeks</button>
-          <button class="spotify-range-btn" data-range="medium_term">6 Months</button>
-          <button class="spotify-range-btn" data-range="long_term">All Time</button>
-        </div>
-        <div id="spotify-top-container">
-          <div class="spotify-loading"><i class="fab fa-spotify"></i><span>Loading…</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── PHOTO GALLERY ───────────────────────────────────────
-      ★ HOW TO ADD YOUR PHOTOS:
-      1. Put image files in public/images/gallery/ folder
-         (create that folder if it doesn't exist)
-      2. Replace each .gallery-placeholder div with:
-         <img src="images/gallery/photo1.jpg" alt="description" />
-      3. Add or remove .gallery-item divs to change the count
-
-      Clicking a photo opens it fullscreen (lightbox handled in script.js)
-    ─────────────────────────────────────────────────────────── -->
-    <div class="content-block">
-      <h3 class="block-label">Photos</h3>
-      <div class="photo-grid" id="photo-gallery">
-
-        <!-- ★ Replace each gallery-placeholder with your actual image -->
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-          <!-- Replace above with: <img src="images/gallery/photo1.jpg" alt="caption" /> -->
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder"><i class="fa fa-image"></i></div>
-        </div>
-        <!-- ← Add more gallery-item divs as needed -->
-
-      </div>
-    </div>
-
-    <!-- ── INSTAGRAM FEED (auto-synced) ───────────────────────
-      This section auto-loads your latest 6 IG posts via the
-      Instagram Basic Display API. The backend (server.js) handles
-      the API call — it reads your token from .env.
-
-      ★ SETUP STEPS (one-time):
-      1. Go to developers.facebook.com
-      2. Create a new app → choose "Consumer" type
-      3. Add "Instagram Basic Display" product
-      4. Add your IG account as a test user
-      5. Generate a User Token (valid 60 days; see server.js for how to refresh)
-      6. In your .env file add:  INSTAGRAM_TOKEN=your_token_here
-      7. Restart the server — posts will load automatically
-
-      Until you set this up, a fallback message is shown.
-    ─────────────────────────────────────────────────────────── -->
+    <!-- ── INSTAGRAM FEED ────────────────────────────────────── -->
     <div class="content-block">
       <div class="content-block-header">
         <h3 class="block-label">Instagram</h3>
-        <a href="https://instagram.com/YOURUSERNAME" class="btn btn-sm" target="_blank" rel="noopener" id="ig-profile-link">
-          <!-- ← Change YOURUSERNAME to your actual IG handle -->
+        <a href="https://instagram.com/Collin.Shen" class="btn btn-sm" target="_blank" rel="noopener" id="ig-profile-link">
           <i class="fab fa-instagram"></i> Follow Me
         </a>
       </div>
 
-      <!-- Posts load here via script.js → fetch('/api/instagram') -->
       <div class="ig-grid" id="ig-feed">
-        <!-- Loading state shown while JS fetches posts -->
         <div class="ig-loading" id="ig-loading">
           <i class="fab fa-instagram"></i>
           <span>Loading posts…</span>
@@ -587,7 +504,7 @@
       </div>
     </div>
 
-    <!-- ── CURRENT SERIES ──────────────────────────────────── -->
+    <!-- ── CURRENT SERIES ─────────────────────────────────────── -->
     <div class="content-block">
       <h3 class="block-label">Current Series</h3>
       <div class="series-list">
@@ -597,7 +514,7 @@
           <p class="series-desc">
             Weekly updates — workouts, meals, progress photos, and honest reflections. Posted every Sunday.
           </p>
-          <a href="https://instagram.com/YOURUSERNAME" class="series-link" target="_blank" rel="noopener">
+          <a href="https://instagram.com/Collin.Shen" class="series-link" target="_blank" rel="noopener">
             Follow along <i class="fa fa-arrow-right"></i>
           </a>
         </div>
@@ -615,11 +532,11 @@
 
 
   <!-- ============================================================
-    SECTION 3: MY CONTACT
+    CONTACT
   ============================================================ -->
   <section id="contact">
     <div class="section-intro">
-      <div class="section-num">03</div>
+      <div class="section-num">04</div>
       <div>
         <h2 class="section-title">My<br><em>Contact</em></h2>
         <p class="section-desc">Recruiter, follower, or just want to say hi — reach out.</p>
@@ -637,10 +554,9 @@
             <i class="fab fa-linkedin"></i>
             <div><span class="social-platform">LinkedIn</span><span class="social-handle">Collin Shen</span></div>
           </a>
-          <a href="https://instagram.com/YOURUSERNAME" class="social-link" target="_blank" rel="noopener">
-            <!-- ← Change YOURUSERNAME -->
+          <a href="https://instagram.com/Collin.Shen" class="social-link" target="_blank" rel="noopener">
             <i class="fab fa-instagram"></i>
-            <div><span class="social-platform">Instagram</span><span class="social-handle">@YOURUSERNAME</span></div>
+            <div><span class="social-platform">Instagram</span><span class="social-handle">@Collin.Shen</span></div>
           </a>
           <a href="mailto:cxshen@andrew.cmu.edu" class="social-link">
             <i class="fa fa-envelope"></i>

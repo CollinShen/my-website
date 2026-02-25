@@ -68,12 +68,12 @@ document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 
 // ================================================================
-// 3. TIMELINE ACCORDION (career section)
+// 3. DUAL TIMELINE ACCORDION
 // ================================================================
-document.querySelectorAll('.tl-header').forEach(btn => {
+document.querySelectorAll('.dt-header').forEach(btn => {
   btn.addEventListener('click', () => {
-    const item   = btn.closest('.tl-item');
-    const isOpen = item.classList.toggle('open');
+    const entry  = btn.closest('.dt-entry');
+    const isOpen = entry.classList.toggle('open');
     btn.setAttribute('aria-expanded', isOpen);
   });
 });
@@ -201,7 +201,7 @@ async function loadJourney() {
     if (!entries.length) {
       container.innerHTML = `
         <div class="wl-empty">
-          <p>No entries yet — add your first one in the <a href="/admin.html">admin panel</a>.</p>
+          <p>No entries yet — check back soon.</p>
         </div>`;
       return;
     }
@@ -334,41 +334,49 @@ async function loadTopSpotify(range) {
     const data = await res.json();
 
     if (!res.ok || data.error) {
-      container.innerHTML = `<div class="spotify-setup"><span>Not connected. See server.js for setup.</span></div>`;
+      const msg = data.error === 'not_configured'
+        ? 'Spotify not connected. See server.js for setup.'
+        : 'Not enough listening history for this time range yet.';
+      container.innerHTML = `<div class="spotify-setup"><span>${msg}</span></div>`;
+      return;
+    }
+
+    if (!data.artists?.length && !data.tracks?.length) {
+      container.innerHTML = `<div class="spotify-setup"><span>Not enough listening history for this time range yet.</span></div>`;
       return;
     }
 
     const rangeLabel = { short_term: 'Last 4 Weeks', medium_term: 'Last 6 Months', long_term: 'All Time' }[range];
 
+    const artistHTML = data.artists.map((a, i) => `
+      <a class="spotify-artist-item" href="${a.url}" target="_blank" rel="noopener">
+        <span class="spotify-rank">${i + 1}</span>
+        ${a.image ? `<img src="${a.image}" alt="${a.name}" class="spotify-artist-img" />` : '<div class="spotify-artist-img-placeholder"></div>'}
+        <div class="spotify-artist-info">
+          <span class="spotify-artist-name">${a.name}</span>
+          ${a.genres.length ? `<span class="spotify-genres">${a.genres.join(', ')}</span>` : ''}
+        </div>
+      </a>`).join('');
+
+    const trackHTML = data.tracks.map((t, i) => `
+      <a class="spotify-track-item" href="${t.url}" target="_blank" rel="noopener">
+        <span class="spotify-rank">${i + 1}</span>
+        ${t.albumArt ? `<img src="${t.albumArt}" alt="${t.album}" class="spotify-album-art" />` : '<div class="spotify-album-art-placeholder"></div>'}
+        <div class="spotify-track-info">
+          <span class="spotify-track-name">${t.name}</span>
+          <span class="spotify-track-artist">${t.artist}</span>
+        </div>
+      </a>`).join('');
+
     container.innerHTML = `
-      <div class="spotify-columns">
+      <div class="spotify-top-wrap-inner">
         <div class="spotify-col">
-          <p class="spotify-col-label">Top Artists</p>
-          <div class="spotify-artist-list">
-            ${data.artists.map((a, i) => `
-              <a class="spotify-artist-item" href="${a.url}" target="_blank" rel="noopener">
-                <span class="spotify-rank">${i + 1}</span>
-                ${a.image ? `<img src="${a.image}" alt="${a.name}" class="spotify-artist-img" />` : '<div class="spotify-artist-img-placeholder"></div>'}
-                <div class="spotify-artist-info">
-                  <span class="spotify-artist-name">${a.name}</span>
-                  ${a.genres.length ? `<span class="spotify-genres">${a.genres.join(', ')}</span>` : ''}
-                </div>
-              </a>`).join('')}
-          </div>
+          <p class="spotify-col-header">Top Artists</p>
+          ${artistHTML}
         </div>
         <div class="spotify-col">
-          <p class="spotify-col-label">Top Tracks</p>
-          <div class="spotify-track-list">
-            ${data.tracks.map((t, i) => `
-              <a class="spotify-track-item" href="${t.url}" target="_blank" rel="noopener">
-                <span class="spotify-rank">${i + 1}</span>
-                ${t.albumArt ? `<img src="${t.albumArt}" alt="${t.album}" class="spotify-album-art" />` : '<div class="spotify-album-art-placeholder"></div>'}
-                <div class="spotify-track-info">
-                  <span class="spotify-track-name">${t.name}</span>
-                  <span class="spotify-track-artist">${t.artist}</span>
-                </div>
-              </a>`).join('')}
-          </div>
+          <p class="spotify-col-header">Top Tracks</p>
+          ${trackHTML}
         </div>
       </div>`;
 
@@ -389,3 +397,56 @@ loadTopSpotify('short_term');
 
 // Refresh now-playing every 30 seconds
 setInterval(loadNowPlaying, 30000);
+
+// ── IMAGE ROTATORS (hero + section headers) ──────────────────
+// Each slot has its own image list so you can swap them out independently later.
+// To give a slot its own photos: replace its array with e.g. 'images/hero/IMG_xyz.JPG'
+
+// ★ HERO — swap in: images/hero/
+const heroImages = [
+  'images/IMG_6727.JPG', 'images/IMG_0764.JPG', 'images/IMG_1983.JPG',
+  'images/IMG_2434.JPG', 'images/IMG_2455.JPG', 'images/IMG_3359.JPG',
+  'images/IMG_7740.PNG', 'images/IMG_8237.JPG', 'images/IMG_8776.JPG',
+  'images/IMG_9746.JPG'
+];
+
+// ★ ABOUT ME — swap in: images/about/
+const aboutImages = [
+  'images/IMG_6727.JPG', 'images/IMG_0764.JPG', 'images/IMG_1983.JPG',
+  'images/IMG_2434.JPG', 'images/IMG_2455.JPG', 'images/IMG_3359.JPG',
+  'images/IMG_7740.PNG', 'images/IMG_8237.JPG', 'images/IMG_8776.JPG',
+  'images/IMG_9746.JPG'
+];
+
+// ★ MY CAREER — swap in: images/career/
+const careerImages = [
+  'images/IMG_6727.JPG', 'images/IMG_0764.JPG', 'images/IMG_1983.JPG',
+  'images/IMG_2434.JPG', 'images/IMG_2455.JPG', 'images/IMG_3359.JPG',
+  'images/IMG_7740.PNG', 'images/IMG_8237.JPG', 'images/IMG_8776.JPG',
+  'images/IMG_9746.JPG'
+];
+
+// ★ MY CONTENT — swap in: images/content/
+const contentImages = [
+  'images/IMG_6727.JPG', 'images/IMG_0764.JPG', 'images/IMG_1983.JPG',
+  'images/IMG_2434.JPG', 'images/IMG_2455.JPG', 'images/IMG_3359.JPG',
+  'images/IMG_7740.PNG', 'images/IMG_8237.JPG', 'images/IMG_8776.JPG',
+  'images/IMG_9746.JPG'
+];
+
+function startRotator(id, imageList, startIdx) {
+  let idx = startIdx % imageList.length;
+  const el = document.getElementById(id);
+  if (!el) return;
+  setInterval(() => {
+    idx = (idx + 1) % imageList.length;
+    el.style.opacity = '0';
+    setTimeout(() => { el.src = imageList[idx]; el.style.opacity = '1'; }, 600);
+  }, 3000);
+}
+
+// Stagger start positions so all four don't show the same photo at once
+startRotator('hero-photo',    heroImages,    0);
+startRotator('about-photo',   aboutImages,   3);
+startRotator('career-photo',  careerImages,  6);
+startRotator('content-photo', contentImages, 8);

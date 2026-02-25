@@ -321,8 +321,8 @@ app.get('/api/spotify/top', async (req, res) => {
   try {
     const token = await getSpotifyToken();
     const [artists, tracks] = await Promise.all([
-      fetchOptions(`https://api.spotify.com/v1/me/top/artists?limit=6&time_range=${range}`, { headers: { 'Authorization': `Bearer ${token}` } }),
-      fetchOptions(`https://api.spotify.com/v1/me/top/tracks?limit=6&time_range=${range}`,  { headers: { 'Authorization': `Bearer ${token}` } })
+      fetchOptions(`https://api.spotify.com/v1/me/top/artists?limit=10&time_range=${range}`, { headers: { 'Authorization': `Bearer ${token}` } }),
+      fetchOptions(`https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=${range}`,  { headers: { 'Authorization': `Bearer ${token}` } })
     ]);
 
     const result = {
@@ -330,7 +330,7 @@ app.get('/api/spotify/top', async (req, res) => {
       artists: (artists.items || []).map(a => ({
         name:   a.name,
         image:  a.images[0]?.url || null,
-        genres: a.genres.slice(0, 2),
+        genres: (a.genres || []).slice(0, 2),
         url:    a.external_urls.spotify
       })),
       tracks: (tracks.items || []).map(t => ({
@@ -353,7 +353,24 @@ app.get('/api/spotify/top', async (req, res) => {
 
 
 // ================================================================
-// INSTAGRAM
+// INSTAGRAM (Instagram API with Instagram Login — replaces Basic Display)
+//
+// ★ SETUP (one-time):
+//   1. developers.facebook.com → Create App → Consumer
+//   2. Add Product: "Instagram" (the new one, not Basic Display)
+//   3. Instagram → API setup with Instagram login
+//   4. Add redirect URI: http://localhost:3000/api/instagram/callback
+//      (also add http://127.0.0.1:3000/api/instagram/callback)
+//   5. Copy App ID + App Secret into .env:
+//        INSTAGRAM_CLIENT_ID=...
+//        INSTAGRAM_CLIENT_SECRET=...
+//        INSTAGRAM_REDIRECT_URI=http://localhost:3000/api/instagram/callback
+//   6. Start server → visit: http://localhost:3000/api/instagram/auth
+//   7. Authorize with Instagram → token printed to console
+//   8. Add to .env: INSTAGRAM_TOKEN=...
+//   9. Restart server — done! Token lasts 60 days; refresh at /api/instagram/refresh
+//
+// NOTE: Requires an Instagram Creator or Business account.
 // ================================================================
 let igCache = { data: null, fetchedAt: 0 };
 
@@ -367,16 +384,65 @@ function fetchJSON(url) {
   });
 }
 
+// One-time auth — visit in browser to kick off OAuth
+app.get('/api/instagram/auth', (req, res) => {
+  const clientId = process.env.INSTAGRAM_CLIENT_ID;
+  if (!clientId) return res.send('Add INSTAGRAM_CLIENT_ID to .env first.');
+  const redirectUri = process.env.INSTAGRAM_REDIRECT_URI || `http://localhost:${PORT}/api/instagram/callback`;
+  const scope = 'instagram_business_basic';
+  const params = new URLSearchParams({ client_id: clientId, redirect_uri: redirectUri, scope, response_type: 'code' });
+  res.redirect(`https://api.instagram.com/oauth/authorize?${params}`);
+});
+
+// OAuth callback — exchanges code for short-lived token, then long-lived token
+app.get('/api/instagram/callback', async (req, res) => {
+  const { code, error } = req.query;
+  if (error || !code) return res.send('Auth failed: ' + (error || 'no code'));
+
+  const clientId     = process.env.INSTAGRAM_CLIENT_ID;
+  const clientSecret = process.env.INSTAGRAM_CLIENT_SECRET;
+  const redirectUri  = process.env.INSTAGRAM_REDIRECT_URI || `http://localhost:${PORT}/api/instagram/callback`;
+
+  try {
+    // Step 1: exchange code for short-lived token
+    const body = new URLSearchParams({ client_id: clientId, client_secret: clientSecret, grant_type: 'authorization_code', redirect_uri: redirectUri, code });
+    const short = await fetchOptions('https://api.instagram.com/oauth/access_token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': Buffer.byteLength(body.toString()) },
+      body: body.toString()
+    });
+    if (!short.access_token) return res.send('Failed to get short-lived token: ' + JSON.stringify(short));
+
+    // Step 2: exchange for long-lived token (60 days)
+    const long = await fetchJSON(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_id=${clientId}&client_secret=${clientSecret}&access_token=${short.access_token}`);
+    if (!long.access_token) return res.send('Failed to get long-lived token: ' + JSON.stringify(long));
+
+    console.log('\n★ INSTAGRAM TOKEN — add to .env:');
+    console.log(`INSTAGRAM_TOKEN=${long.access_token}\n`);
+    process.env.INSTAGRAM_TOKEN = long.access_token;
+
+    res.send(`
+      <h2 style="font-family:sans-serif">✅ Instagram connected!</h2>
+      <p style="font-family:sans-serif">Long-lived token printed to server console.</p>
+      <p style="font-family:sans-serif">Copy it into .env as <code>INSTAGRAM_TOKEN</code>, then restart the server.</p>
+      <a href="/">← Back to site</a>
+    `);
+  } catch (err) {
+    res.status(500).send('Error: ' + err.message);
+  }
+});
+
+// Fetch latest posts — cached 15 min
 app.get('/api/instagram', async (req, res) => {
   const token = process.env.INSTAGRAM_TOKEN;
-  if (!token || token === 'your_token_here') return res.status(503).json({ error: 'INSTAGRAM_TOKEN not configured' });
+  if (!token) return res.status(503).json({ error: 'not_configured' });
 
   const now = Date.now();
   if (igCache.data && now - igCache.fetchedAt < 15 * 60 * 1000) return res.json(igCache.data);
 
   try {
     const fields = 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp';
-    const data   = await fetchJSON(`https://graph.instagram.com/me/media?fields=${fields}&limit=6&access_token=${token}`);
+    const data   = await fetchJSON(`https://graph.instagram.com/v21.0/me/media?fields=${fields}&limit=6&access_token=${token}`);
     if (data.error) return res.status(502).json({ error: data.error.message });
     igCache = { data, fetchedAt: now };
     res.json(data);
@@ -385,6 +451,7 @@ app.get('/api/instagram', async (req, res) => {
   }
 });
 
+// Refresh long-lived token before it expires (visit this URL every ~50 days)
 app.get('/api/instagram/refresh', async (req, res) => {
   const token = process.env.INSTAGRAM_TOKEN;
   if (!token) return res.status(400).send('No token.');
@@ -392,7 +459,7 @@ app.get('/api/instagram/refresh', async (req, res) => {
     const data = await fetchJSON(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`);
     if (data.access_token) {
       console.log('\n★ NEW INSTAGRAM TOKEN:', data.access_token);
-      res.send('<h2>Done! Check server console for new token.</h2>');
+      res.send('<h2 style="font-family:sans-serif">Done! Check server console for new token.</h2>');
     } else {
       res.status(400).send(JSON.stringify(data));
     }
@@ -439,7 +506,13 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 
 app.use((req, res) => res.status(404).send('Not found.'));
 
-app.listen(PORT, () => {
-  console.log(`✅  http://localhost:${PORT}`);
-  console.log(`🔐  Admin: http://localhost:${PORT}/admin.html`);
-});
+// ── LOCAL DEV: start the server when run directly (node server.js / nodemon)
+// ── VERCEL:    exports app below so Vercel wraps it as a serverless function
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`✅  http://localhost:${PORT}`);
+    console.log(`🔐  Admin: http://localhost:${PORT}/admin.html`);
+  });
+}
+
+module.exports = app;
