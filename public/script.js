@@ -398,6 +398,42 @@ loadTopSpotify('short_term');
 // Refresh now-playing every 30 seconds
 setInterval(loadNowPlaying, 30000);
 
+// ── GALLERY TOGGLE (mobile only) ─────────────────────────────
+(function () {
+  const toggle = document.querySelector('.gallery-toggle');
+  const grid   = document.getElementById('photo-gallery');
+  if (!toggle || !grid) return;
+
+  const isMobile = () => window.innerWidth <= 768;
+
+  function collapse() {
+    grid.classList.add('gallery-collapsed');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = 'Show <i class="fa fa-chevron-down"></i>';
+  }
+  function expand() {
+    grid.classList.remove('gallery-collapsed');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.innerHTML = 'Hide <i class="fa fa-chevron-up"></i>';
+  }
+
+  // Start collapsed on mobile
+  if (isMobile()) collapse();
+
+  toggle.addEventListener('click', () => {
+    grid.classList.contains('gallery-collapsed') ? expand() : collapse();
+  });
+
+  // Reset if window resizes past breakpoint
+  window.addEventListener('resize', () => {
+    if (!isMobile()) expand();
+    else if (!toggle.classList.contains('open')) collapse();
+  }, { passive: true });
+})();
+
+
 // ── IMAGE ROTATORS (hero + section headers) ──────────────────
 // Each slot has its own image list so you can swap them out independently later.
 // To give a slot its own photos: replace its array with e.g. 'images/hero/IMG_xyz.JPG'
