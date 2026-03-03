@@ -884,7 +884,7 @@
   /* interests grid */
   .interests-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 1.25rem;
   }
@@ -903,6 +903,90 @@
     color: var(--text);
     font-style: italic;
     line-height: 1.7;
+  }
+
+  /* TV Show ranked list */
+  .show-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .show-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .show-rank {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--faint);
+    min-width: 1rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .show-poster {
+    width: 42px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid var(--divider);
+    flex-shrink: 0;
+  }
+
+  .show-title {
+    font-size: 0.83rem;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  /* Hobbies list */
+  .hobby-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .hobby-tag {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* Idol cards */
+  .idol-list {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .idol-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .idol-photo {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    border: 1.5px solid var(--divider);
+  }
+
+  .idol-name {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.04em;
   }
 
 
@@ -1457,7 +1541,7 @@
     .about-text { font-size: 0.93rem; }
 
     /* Interests */
-    .interests-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1rem; }
+    .interests-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
 
     /* Gallery toggle — show the button on mobile */
     .gallery-toggle { display: inline-flex; }
