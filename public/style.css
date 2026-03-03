@@ -943,19 +943,42 @@
     color: var(--text);
   }
 
-  /* Hobbies list */
-  .hobby-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: 0.5rem;
+  /* Hobbies grid */
+  .hobby-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
   }
 
-  .hobby-tag {
-    font-size: 0.92rem;
-    color: var(--text);
-    font-style: italic;
-    line-height: 1.7;
+  .hobby-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .hobby-card:hover {
+    border-color: var(--sage);
+    background: var(--sage-light);
+  }
+
+  .hobby-icon {
+    font-size: 1.35rem;
+    color: var(--sage);
+  }
+
+  .hobby-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    font-weight: 400;
   }
 
   /* Idol cards */

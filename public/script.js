@@ -87,7 +87,7 @@ const submitBtn   = document.getElementById('submit-btn');
 const formSuccess = document.getElementById('form-success');
 const formError   = document.getElementById('form-error');
 
-contactForm?.addEventListener('submit', async e => {
+contactForm?.addEventListener('submit', e => {
   e.preventDefault();
   formSuccess.hidden = formError.hidden = true;
 
@@ -102,21 +102,9 @@ contactForm?.addEventListener('submit', async e => {
     formError.textContent = 'Please enter a valid email.'; formError.hidden = false; return;
   }
 
-  const btnText    = submitBtn.querySelector('.btn-text');
-  const btnLoading = submitBtn.querySelector('.btn-loading');
-  submitBtn.disabled = true; btnText.hidden = true; btnLoading.hidden = false;
-
-  try {
-    const res  = await fetch('/contact', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, message })
-    });
-    const data = await res.json();
-    if (res.ok) { formSuccess.hidden = false; contactForm.reset(); }
-    else { formError.textContent = data.error || 'Something went wrong.'; formError.hidden = false; }
-  } catch { formError.textContent = 'Could not reach the server.'; formError.hidden = false; }
-
-  submitBtn.disabled = false; btnText.hidden = false; btnLoading.hidden = true;
+  const subject = encodeURIComponent(`Message from ${name}`);
+  const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  window.location.href = `mailto:cxshen@andrew.cmu.edu?subject=${subject}&body=${body}`;
 });
 
 
